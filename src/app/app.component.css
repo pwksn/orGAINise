@@ -1,0 +1,12 @@
+.layout {
+    display: grid;
+    grid-template-columns: 15vw 1fr;
+    grid-template-rows: 100%;
+}
+
+@media (max-width: 1200px) {
+    .layout {
+      grid-template-columns: 100vw;
+      grid-template-rows: min-content 1fr;
+    }
+}
