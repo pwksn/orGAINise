@@ -10,3 +10,9 @@
       grid-template-rows: min-content 1fr;
     }
 }
+
+.content-center {
+  margin: auto;
+  width: 90%;
+  height: 90%;  
+}

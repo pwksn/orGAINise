@@ -20,9 +20,5 @@ export class AppComponent implements OnInit {
     this.locationService.getPosition().then(pos => {
       this.weatherService.getWeather(pos.lng, pos.lat);
     })
-
-    // this.weatherService.getWeather('Krakow').subscribe(
-    //   response => console.log(response)
-    // );
   }
 }

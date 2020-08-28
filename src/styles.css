@@ -1,11 +1,40 @@
+/* *, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-weight: inherit;
+} */
+
 body { 
-    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+    /* overflow-y: hidden; */
 }
 
-html {
+app-root {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    /* To avoid scrolling on mobile devices:  */
+    max-height: -webkit-fill-available; 
+
+    background-color: #394753;
+
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: 100vw;
+}
+
+body, html {
+    height: 100vh;
     font-size: 62.5%;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
+    html { font-size: 40%; }
+}
+
+@media (max-width: 350px) {
     html { font-size: 30%; }
-  }
+}
