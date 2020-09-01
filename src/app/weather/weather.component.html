@@ -1,1 +1,42 @@
-<p>weather works!</p>
+<div class="module-box weather-box d-flex flex-column align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-center">
+        <svg width="2.5rem" height="2.5rem" viewBox="0 0 16 16" class="bi bi-geo-alt-fill mr-3" fill="#fff">
+            <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        </svg>
+        <h3>Kraków</h3>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+        <div class="d-flex align-items-center justify-content-center">
+            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+            <h1>22&deg;C</h1>
+        </div>
+        <p>Temp. odczuwalna: 20&deg;C</p>
+        <h2>Opis pogody</h2>
+        <div class="d-flex justify-content-center align-items-center my-3">
+            <p class="mx-4">Ciśnienie: 1000 hPa</p>
+            <p class="mx-4">Wilgotność: 80%</p>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+        <h3 class="my-0 mr-4">Jutro:</h3>
+        <div class="d-flex flex-column align-items-start justify-content-center">
+            <p class="m-0">
+                <span>
+                    <svg width="2rem" height="2rem" viewBox="0 0 16 16" class="bi bi-arrow-down-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0v6z"/>
+                      </svg>
+                </span> 
+                24 &deg;C
+            </p>
+            <p class="m-0">
+                <span>
+                    <svg width="2rem" height="2rem" viewBox="0 0 16 16" class="bi bi-arrow-up-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z"/>
+                      </svg>
+                </span>
+                28 &deg;C
+            </p>
+        </div>
+        <p class="ml-4 my-0">Opis pogody jutro</p>
+    </div>
+</div>
