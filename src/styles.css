@@ -31,6 +31,11 @@ body, html {
     font-size: 62.5%;
 }
 
+.btn-round {
+    padding: 1rem !important;
+    border-radius: 50% !important;
+}
+
 @media (max-width: 700px) {
     html { font-size: 40%; }
 }

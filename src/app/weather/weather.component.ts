@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherService, WeatherDataFields, NextDayWeather } from './weather.service';
 
 @Component({
   selector: 'app-weather',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
+  fetchedLocation: WeatherDataFields;
+  nextDayForecast: NextDayWeather;
 
-  constructor() { }
+  constructor(
+    private weatherService: WeatherService,
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    console.log(this.weatherService.getCurrentWeather());
+    this.fetchedLocation = this.weatherService.getCurrentWeather();
+    this.nextDayForecast = this.weatherService.getNextDayWeather();
+    console.log(this.fetchedLocation);
+  }
+
+  onWeatherRefresh() {
+    console.log('Refreshed!');
+    this.weatherService.refreshWeather();
   }
 
 }
