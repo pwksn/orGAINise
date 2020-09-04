@@ -19,6 +19,7 @@ export class WeatherComponent implements OnInit {
     this.fetchedLocation = this.weatherService.getCurrentWeather();
     this.nextDayForecast = this.weatherService.getNextDayWeather();
     console.log(this.fetchedLocation);
+    console.log(this.nextDayForecast);
   }
 
   onWeatherRefresh() {

@@ -31,6 +31,10 @@ body, html {
     font-size: 62.5%;
 }
 
+.module-box {
+    height: 100%;
+}
+
 .btn-round {
     padding: 1rem !important;
     border-radius: 50% !important;
