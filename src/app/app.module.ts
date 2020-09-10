@@ -10,7 +10,10 @@ import { WeatherComponent } from './weather/weather.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 
-import { } from './shared/location.service'
+import { } from './shared/location.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { CommonModule } from '@angular/common';
+import { PomodoroComponent } from './pomodoro/pomodoro.component';
 
 const appRoutes: Routes = [
   { path: '', component: LayoutComponent },
@@ -18,6 +21,10 @@ const appRoutes: Routes = [
   {
     path: 'weather',
     loadChildren: () => import('./weather/weather.module').then(m => m.WeatherModule)
+  },
+  {
+    path: 'pomodoro',
+    loadChildren: () => import('./pomodoro/pomodoro.module').then(m => m.PomodoroModule)
   }
 ]
 
@@ -28,12 +35,15 @@ const appRoutes: Routes = [
     SidebarComponent,
     LayoutComponent,
     WeatherComponent,
+    PomodoroComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     SharedModule,
-    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
+    CommonModule,
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

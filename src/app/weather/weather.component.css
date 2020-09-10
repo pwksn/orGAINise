@@ -29,9 +29,6 @@ svg {
     margin: auto;
 }
 
-.icon-box {
-    background-color: #18BC9C;
-    width: 10rem;
-    height: 10rem;
-    border-radius: 1rem;
+.self-center {
+    text-align: center;
 }

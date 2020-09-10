@@ -11,7 +11,7 @@
             <h1>{{ fetchedLocation.currentTemp | number: '1.1-1' }}&deg;C</h1>
         </div>
         <p>Temp. odczuwalna: {{ fetchedLocation.feelsLikeTemp | number: '1.1-1' }}&deg;C</p>
-        <h2>{{ fetchedLocation.weatherDesc }}</h2>
+        <h2 class="self-center">{{ fetchedLocation.weatherDesc }}</h2>
         <div class="d-flex justify-content-center align-items-center my-3">
             <p class="mx-4">Ciśnienie: {{ fetchedLocation.pressure }} hPa</p>
             <p class="mx-4">Wilgotność: {{ fetchedLocation.humidity }}%</p>
