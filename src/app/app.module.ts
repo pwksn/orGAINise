@@ -35,7 +35,6 @@ const appRoutes: Routes = [
     SidebarComponent,
     LayoutComponent,
     WeatherComponent,
-    PomodoroComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +42,7 @@ const appRoutes: Routes = [
     SharedModule,
     CommonModule,
     RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}),
-    NgbModule
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

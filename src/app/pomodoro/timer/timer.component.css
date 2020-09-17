@@ -1,0 +1,17 @@
+.timer-box {
+    width: 100%;
+    text-align: center;
+}
+
+h1 { 
+    font-size: 12rem;
+    font-weight: 500;
+    color: white;
+    width: 100%;
+}
+
+button {
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 8rem;
+}

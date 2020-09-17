@@ -1,0 +1,11 @@
+<div class="container timer-box d-flex flex-column align-items-center">
+    <h1>
+        {{value[0] < 10 ? 0 : ''}}{{value[0]}}:{{value[1] < 10 ? 0 : ''}}{{value[1]}}
+    </h1>
+    
+    <div class="controls">
+        <button type="button" class="btn btn-primary mr-3" (click)="onTimerStart()">Start</button>
+        <button type="button" class="btn btn-primary" (click)="onTimerStop()">Stop</button>
+        <button type="button" class="btn btn-primary ml-3" (click)="onTimerReset()">Reset</button>
+    </div>
+</div>

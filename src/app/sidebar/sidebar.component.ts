@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  isExpanded = false; // used to toggle submenu
+  isExpanded = false; // to toggle submenu
 
   constructor() { }
 
@@ -19,5 +19,9 @@ export class SidebarComponent implements OnInit {
     this.isExpanded = !this.isExpanded;
     console.log(this.isExpanded);
     return this.isExpanded;
+  }
+
+  onSubmenuClose() {
+    this.isExpanded = false;
   }
 }

@@ -4,17 +4,15 @@ import { WeatherService } from './weather.service';
 import { Routes, RouterModule } from '@angular/router';
 import { WeatherComponent } from './weather.component';
 
-const weatherRoutes: Routes = [
-  { path: '', component: WeatherComponent }
-]
+const weatherRoutes: Routes = [{ path: '', component: WeatherComponent }];
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
+    CommonModule, 
     RouterModule.forChild(weatherRoutes)
   ],
   exports: [RouterModule],
-  providers: []
+  providers: [],
 })
-export class WeatherModule { }
+export class WeatherModule {}

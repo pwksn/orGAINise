@@ -1,0 +1,50 @@
+.pomodoro-box {
+    background-color: #77dd77;
+    padding: 4rem;
+    height: 100%;
+}
+
+button {
+    font-size: 2rem;
+    width: 20rem;
+}
+
+h1, h2, h3, p {
+    font-weight: 300;
+    color: white;
+}
+
+h1 { 
+    font-size: 8rem;
+}
+
+h2 {
+    font-size: 5rem;
+}
+
+h3 {
+    font-size: 3rem;
+}
+
+p {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.bg-focus {
+    background-color: #E74C3C;
+}
+
+@media (max-width: 700px) {
+    button {
+        margin: 0 .5rem !important;
+        width: 15rem;
+        font-size: 1.9rem;
+    }
+
+    .controls {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+}
