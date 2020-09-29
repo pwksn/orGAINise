@@ -1,3 +1,4 @@
+import { TimerService } from './timer/timer.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -6,26 +7,34 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './pomodoro.component.html',
   styleUrls: ['./pomodoro.component.css']
 })
-export class PomodoroComponent {
+export class PomodoroComponent implements OnInit{
 
-  mode = 'focus';
+  mode: string = 'focus';
   message: string;
   pomodoroCount = 0;
 
   constructor(
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private timerService: TimerService
   ) { }
+
+  ngOnInit() {
+    this.mode = this.timerService.getCurrentMode();
+  }
 
   onSwitchToPomodoro() {
     this.mode = 'focus';
+    this.timerService.setStartingValues(this.mode);
   }
 
   onSwitchToShortBreak() {
     this.mode = 'short';
+    this.timerService.setStartingValues(this.mode);
   }
 
   onSwitchToLongBreak() {
     this.mode = 'long';
+    this.timerService.setStartingValues(this.mode);
   }
 
   onTimerComplete(content) {

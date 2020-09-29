@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { TimerService } from './timer.service';
+import { AfterContentInit, AfterViewInit, Component, DoCheck, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { interval, Subject, Subscription } from 'rxjs';
 
 @Component({
@@ -10,70 +11,74 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   @Input() m: number;
   @Input() s: number;
-  // @Output() onComplete: EventEmitter<any> = new EventEmitter();
+
   @Output() onComplete = new Subject<any>();
 
-  running: boolean = false;
-  value = [25, 0];
-  subscription: Subscription;
+  currentMins: number = this.timerService.getValue()[0];
+  currentSecs: number = this.timerService.getValue()[1];
 
-  constructor() { }
+  running: boolean = false;
+  value = [this.currentMins, this.currentSecs];
+  subscription: Subscription;
+  isTimerRunning: boolean = false;
+  isServiceRunning: boolean = false;
+
+  constructor(
+    private timerService: TimerService
+  ) { }
 
   ngOnInit() {
-    if (this.m) {
-      this.value[0] = this.m;
-    } else { 
-      this.m = 25;
-    }
-    if (this.s) {
-      this.value[1] = this.s;
-    } else {
-      this.s = 0;
+    if (this.timerService.subscription) {
+      this.subscription = interval(1000).subscribe(x => this.onTimerUpdate());
+      this.isServiceRunning = this.timerService.isRunning
     }
   }
 
   ngOnDestroy() {
     if (this.subscription) {
-      //this.subscription.unsubscribe();
-      console.log('sub1');
+    this.subscription.unsubscribe();
     }
   }
 
   onTimerStart() {
-    if (!this.running) {
-      this.running = true;
-      if (this.value[0] === 0 && this.value[1] === 0) {
-        this.onTimerReset();
-      }
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    console.log(this.subscription);
+    this.isTimerRunning = true;
+    this.timerService.onTimerStart();
+    if (this.timerService.subscription) {
+      console.log('subbing!');
       this.subscription = interval(1000).subscribe(x => this.onTimerUpdate());
+      this.isServiceRunning = this.timerService.isRunning;
     }
   }
 
   onTimerStop() {
-    if (this.running) {
-      this.running = false;
-      if (this.subscription) {
-        this.subscription.unsubscribe();
-      }
+    this.timerService.onTimerStop();
+    if (this.subscription) {
+      this.isServiceRunning = this.timerService.isRunning
+      this.subscription.unsubscribe();
     }
+    this.isTimerRunning = false;
   }
 
   onTimerReset() {
-    this.onTimerStop();
-    this.value = [this.m, this.s];
+    this.timerService.onTimerReset();
+    // this.onTimerStop();
+    if (this.subscription) {
+      this.isServiceRunning = this.timerService.isRunning
+      console.log('unsub!');
+      this.subscription.unsubscribe();
+    }
+    this.value = this.timerService.getValue();
+    console.log(this.subscription);
   }
 
   onTimerUpdate() {
-    if (this.running) {
-      if (this.value[0] === 0 && this.value[1] === 0) {
-        this.onTimerStop();
-        // this.onComplete.emit()
-        this.onComplete.next()
-      } else if (this.value[0] !== 0 && this.value[1] === 0) {
-        this.value = [this.value[0] - 1, 59];
-      } else if (this.value[1] !== 0) {
-        this.value = [this.value[0], this.value[1] - 1];
-      }
+    if (this.timerService.isRunning) {
+      this.value = this.timerService.getValue();
     }
+    console.log(this.timerService.getValue());
   }
 }
