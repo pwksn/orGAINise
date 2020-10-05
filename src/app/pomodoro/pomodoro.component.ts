@@ -1,25 +1,59 @@
+import { Subscription } from 'rxjs';
 import { TimerService } from './timer/timer.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pomodoro',
   templateUrl: './pomodoro.component.html',
   styleUrls: ['./pomodoro.component.css']
 })
-export class PomodoroComponent implements OnInit{
+export class PomodoroComponent implements OnInit, OnDestroy{
 
   mode: string = 'focus';
   message: string;
   pomodoroCount = 0;
+  private nextModeSub: Subscription;
 
   constructor(
     private modalService: NgbModal,
-    private timerService: TimerService
+    private timerService: TimerService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.mode = this.timerService.getCurrentMode();
+    this.pomodoroCount = this.timerService.getCyclesDone();
+    this.onModeChange();
+  }
+
+  ngOnDestroy() {
+    this.nextModeSub.unsubscribe();
+  }
+
+  onModeChange() {
+    console.log('sikalafą!');
+    this.nextModeSub = this.timerService.modeChangedObs.subscribe((mode) => {
+      this.mode = mode;
+      if (this.mode === 'focus') {
+        this.onSwitchToPomodoro();
+        this.onComponentRefresh();
+      } else if (this.mode === 'short') {
+        this.onSwitchToShortBreak();
+        this.onComponentRefresh();
+      } else if (this.mode === 'long') {
+        this.onSwitchToLongBreak();
+        this.onComponentRefresh();
+      }
+    });
+  }
+
+  onComponentRefresh() {
+    this.router.navigateByUrl('', {skipLocationChange: true})
+      .then(() => {
+        this.router.navigate(['pomodoro']);
+      })
   }
 
   onSwitchToPomodoro() {

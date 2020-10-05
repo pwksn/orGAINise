@@ -14,14 +14,14 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   @Output() onComplete = new Subject<any>();
 
-  currentMins: number = this.timerService.getValue()[0];
-  currentSecs: number = this.timerService.getValue()[1];
+  private currentMins: number = this.timerService.getValue()[0];
+  private currentSecs: number = this.timerService.getValue()[1];
 
-  running: boolean = false;
-  value = [this.currentMins, this.currentSecs];
-  subscription: Subscription;
-  isTimerRunning: boolean = false;
-  isServiceRunning: boolean = false;
+  private running: boolean = false;
+  public value = [this.currentMins, this.currentSecs];
+  private subscription: Subscription;
+  private isTimerRunning: boolean = false;
+  public isServiceRunning: boolean = false;
 
   constructor(
     private timerService: TimerService
@@ -30,8 +30,8 @@ export class TimerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.timerService.subscription) {
       this.subscription = interval(1000).subscribe(x => this.onTimerUpdate());
-      this.isServiceRunning = this.timerService.isRunning
-    }
+      this.isServiceRunning = this.timerService.isRunning;
+    }    
   }
 
   ngOnDestroy() {
@@ -65,20 +65,17 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   onTimerReset() {
     this.timerService.onTimerReset();
-    // this.onTimerStop();
     if (this.subscription) {
       this.isServiceRunning = this.timerService.isRunning
       console.log('unsub!');
       this.subscription.unsubscribe();
     }
     this.value = this.timerService.getValue();
-    console.log(this.subscription);
   }
 
   onTimerUpdate() {
     if (this.timerService.isRunning) {
       this.value = this.timerService.getValue();
     }
-    console.log(this.timerService.getValue());
   }
 }

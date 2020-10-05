@@ -1,9 +1,11 @@
+import { SoundEffectService } from './sound-effects.service';
 import { NgModule } from "@angular/core";
 import { LocationService } from './location.service';
 
 @NgModule({
     providers: [
-        LocationService
+        LocationService,
+        SoundEffectService
     ]
 })
 export class SharedModule {}
