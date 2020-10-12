@@ -1,0 +1,19 @@
+.info-bar-box {
+    height: 3rem;
+}
+
+h1, h2, h3, h4, p {
+    color: #000;
+}
+
+button {
+    width: 4rem;
+    height: 4rem;
+}
+
+.btn-text {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0;
+}

@@ -1,5 +1,7 @@
+import { DateService } from './../shared/date.service';
 import { Component, OnInit } from '@angular/core';
-import { WeatherService, WeatherDataFields, NextDayWeather } from './weather.service';
+import { NextDayWeather, WeatherDataFields } from './weather-response.model';
+import { WeatherService } from './weather.service';
 
 @Component({
   selector: 'app-weather',

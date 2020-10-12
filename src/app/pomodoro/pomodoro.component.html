@@ -6,25 +6,11 @@
     </div>
     
     <div [ngSwitch]="this.mode" class="timer-box">
-        <app-timer *ngSwitchCase="'focus'" [m]=25 [s]=0 (onComplete)="onTimerComplete(content)"></app-timer>
-        <app-timer *ngSwitchCase="'short'" [m]=5 [s]=0 (onComplete)="onTimerComplete(content)"></app-timer>
-        <app-timer *ngSwitchCase="'long'" [m]=15 [s]=0 (onComplete)="onTimerComplete(content)"></app-timer>
+        <app-timer *ngSwitchCase="'focus'"></app-timer>
+        <app-timer *ngSwitchCase="'short'"></app-timer>
+        <app-timer *ngSwitchCase="'long'"></app-timer>
     </div>
     
-    <p class="counter">Ukończyłeś {{ pomodoroCount }} sesji Pomodoro.</p>
+    <p class="counter">Bieżąca sesja: {{ pomodoroCount }} cykli Pomodoro.</p>
     
-    <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title">Time's up!</h4>
-            <button class="close" type="button" aria-label="Close" (click)=d()>
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>{{ message }}</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-outline-dark" type="button" (click)="c()">Close</button>
-        </div>
-    </ng-template>
 </div>

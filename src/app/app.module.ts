@@ -1,3 +1,4 @@
+import { ToDoModule } from './to-do/to-do.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
@@ -14,10 +15,28 @@ import { } from './shared/location.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { CommonModule } from '@angular/common';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
+import { WeatherModule } from './weather/weather.module';
+import { PomodoroModule } from './pomodoro/pomodoro.module';
 
 const appRoutes: Routes = [
   { path: '', component: LayoutComponent },
-  // { path: 'weather', component: WeatherComponent }
+  {
+    path: 'todo',
+    children: [
+      {
+        path: 'today',
+        loadChildren: () => import('./to-do/today-tasks/today-tasks.module').then(m => m.TodayTasksModule),
+      },
+      {
+        path: 'tomorrow',
+        loadChildren: () => import('./to-do/tomorrow-tasks/tomorrow-tasks.module').then(m => m.TomorrowTasksModule),
+      },
+      {
+        path: 'later',
+        loadChildren: () => import('./to-do/later-tasks/later-tasks.module').then(m => m.LaterTasksModule),
+      }
+    ]
+  },
   {
     path: 'weather',
     loadChildren: () => import('./weather/weather.module').then(m => m.WeatherModule)
@@ -25,7 +44,7 @@ const appRoutes: Routes = [
   {
     path: 'pomodoro',
     loadChildren: () => import('./pomodoro/pomodoro.module').then(m => m.PomodoroModule)
-  }
+  },
 ]
 
 @NgModule({
@@ -34,11 +53,14 @@ const appRoutes: Routes = [
     NavbarComponent,
     SidebarComponent,
     LayoutComponent,
-    WeatherComponent,
+    // WeatherComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    WeatherModule,
+    ToDoModule,
+    PomodoroModule,
     SharedModule,
     CommonModule,
     RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}),

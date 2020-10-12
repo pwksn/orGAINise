@@ -19,7 +19,8 @@ app-root {
     /* To avoid scrolling on mobile devices:  */
     max-height: -webkit-fill-available; 
 
-    background-color: #394753;
+    /* background-color: #394753; */
+    background-color: #f8f9fa;
 
     display: grid;
     grid-template-rows: max-content 1fr;
@@ -29,6 +30,31 @@ app-root {
 body, html {
     height: 100vh;
     font-size: 62.5%;
+}
+
+h1, h2, h3, h4, p {
+    font-weight: 300;
+    color: white;
+}
+
+h1 { 
+    font-size: 8rem;
+}
+
+h2 {
+    font-size: 5rem;
+}
+
+h3 {
+    font-size: 3rem;
+}
+
+h4 {
+    font-size: 2.5rem;
+}
+
+p {
+    font-size: 2rem;
 }
 
 .module-box {

@@ -29,7 +29,7 @@ ul.components {
 
 a {
     color: inherit;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 2rem !important;
 
     display: flex;
@@ -65,16 +65,22 @@ svg {
 
 #sidebar ul li a:hover {
     background-color: #18BC9C;
+    text-decoration: none;
 }
 
 .sidebar-active {
     background-color: #18BC9C;
+    font-weight: 500 !important;
 }
 
 .subText {
     font-size: 1.8rem !important;
-    font-weight: 500;
+    font-weight: 400;
 }
+
+/* .subText:active {
+    font-weight: 500;
+} */
 
 .subList {
     background-color: #233240;

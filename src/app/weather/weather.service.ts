@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocationService } from '../shared/location.service';
-import { WeatherForecastResponse, WeatherCurrentResponse } from './weather-response.model';
+import { WeatherForecastResponse, WeatherCurrentResponse, WeatherDataFields, NextDayWeather } from './weather-response.model';
 
 // used with first get() down below
 // export interface WeatherResponseData {
@@ -18,30 +18,30 @@ import { WeatherForecastResponse, WeatherCurrentResponse } from './weather-respo
 //     }]
 // }
 
-export interface WeatherDataFields {
-    locationName: string,
-    currentTemp: number,
-    feelsLikeTemp: number,
-    weatherDesc: string,
-    weatherIconName: string,
-    pressure: number,
-    humidity: number,
-}
+// export interface WeatherDataFields {
+//     locationName: string,
+//     currentTemp: number,
+//     feelsLikeTemp: number,
+//     weatherDesc: string,
+//     weatherIconName: string,
+//     pressure: number,
+//     humidity: number,
+// }
 
-export interface NextDayWeather {
-    minTemp: number,
-    maxTemp: number,
-    weatherDesc: string,
-}
+// export interface NextDayWeather {
+//     minTemp: number,
+//     maxTemp: number,
+//     weatherDesc: string,
+// }
 
 @Injectable({providedIn: 'root'})
 export class WeatherService {
     constructor(
         private http: HttpClient,
         private locationService: LocationService
-        ) {}
+    ) {}
 
-    currentWeatherData = {
+    public currentWeatherData: WeatherDataFields = {
         locationName: '',
         currentTemp: 0,
         feelsLikeTemp: 0,
@@ -49,14 +49,16 @@ export class WeatherService {
         weatherIconName: '',
         pressure: 0,
         humidity: 0,
-    }
+    };
 
-    nextDayWeather = {
+    public nextDayWeather: NextDayWeather = {
+        temp: 0,
         minTemp: 0,
         maxTemp: 0,
         weatherDesc: '',
-    }
-
+        weatherIconName: '',
+    };
+    
     getWeather(longitude: number, latitude: number) {
         // Get current weather
         this.http.get<WeatherCurrentResponse>('https://api.openweathermap.org/data/2.5/weather?lat='+ latitude + '&lon=' + longitude + '&appid=bffb31e7ffc6eedf1f1311e3c8d3bf9f&lang=pl&units=metric').subscribe(response => {
@@ -78,7 +80,10 @@ export class WeatherService {
                 this.nextDayWeather.minTemp = response.daily[1].temp.min;
                 this.nextDayWeather.maxTemp = response.daily[1].temp.max;
                 this.nextDayWeather.weatherDesc = response.daily[1].weather[0].description;
+                this.nextDayWeather.temp = response.daily[1].temp.day;
+                this.nextDayWeather.weatherIconName = response.daily[1].weather[0].icon;
                 console.log(this.nextDayWeather);
+                
             }
         )
     }

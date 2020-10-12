@@ -5,9 +5,11 @@ export class WeatherForecastResponse {
             temp: {
                 min: number;
                 max: number;
+                day: number;
             },
             weather: [{
                 description: string;
+                icon: string;
             }]
         }
     ]
@@ -25,4 +27,22 @@ export class WeatherCurrentResponse {
         description: string;
         icon: string;
     }]
+}
+
+export class WeatherDataFields {
+    locationName?: string;
+    currentTemp?: number;
+    feelsLikeTemp?: number;
+    weatherDesc?: string;
+    weatherIconName?: string;
+    pressure?: number;
+    humidity?: number;
+}
+
+export class NextDayWeather {
+    temp?: number;
+    minTemp?: number;
+    maxTemp?: number;
+    weatherDesc?: string;
+    weatherIconName?: string;
 }

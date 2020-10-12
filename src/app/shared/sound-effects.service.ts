@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class SoundEffectService {
 
     private audio = new Audio();
 
-    playBellRing() {
+    public playBellRing() {
         this.audio.src = "../../assets/bell-ring-effect.mp3";
         this.audio.load();
         this.audio.play();
