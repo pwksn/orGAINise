@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { InfoBarComponent } from './info-bar/info-bar.component';
-import { TasksTableComponent } from './tasks-table/tasks-table.component';
 import { TodayTasksModule } from './today-tasks/today-tasks.module';
+import { TasksListComponent } from './tasks-list/tasks-list.component';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 const toDoRoutes: Routes = [
   { 
@@ -25,7 +26,7 @@ const toDoRoutes: Routes = [
 ]
 
 @NgModule({
-  declarations: [TasksTableComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(toDoRoutes),
@@ -33,7 +34,6 @@ const toDoRoutes: Routes = [
   ],
   exports: [
     RouterModule,
-    TasksTableComponent,
   ]
 })
 export class ToDoModule { }

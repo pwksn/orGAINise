@@ -1,0 +1,21 @@
+.tasks-list-box {
+    width: 100%;
+    height: 100%;
+}
+
+ul {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.list-group-item {
+    font-size: 1.8rem;
+    background-color: #f8f9fa;
+}
+
+button {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+

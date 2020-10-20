@@ -1,0 +1,45 @@
+<div class="module-box new-task-box d-flex flex-column align-items-center">
+    <div class="new-task-header d-flex justify-content-between align-items-end">
+        <h3><b>Nowe zadanie</b></h3>
+        <button class="btn btn-danger button-back d-flex align-items-center" type="button" (click)="onGoBack()">
+            <svg width="3rem" height="3rem" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+        </button>
+    </div>
+    <hr>    
+    <div class="new-task-form mt-5 w-75">
+        <form action="">
+            <div class="form-group mb-5">
+                <label for="taskName" class="input-label">Nazwa zadania</label>
+                <input type="text" class="form-control" id="taskName" autocomplete="off" placeholder="Co chcesz zrobić?">
+            </div>
+            <div class="form-group mb-5">
+                <label for="taskDate" class="input-label">Termin zadania</label>
+                <select name="taskDate" id="taskDate" class="form-control">
+                    <option selected value="today">Dziś</option>
+                    <option value="tomorrow">Jutro</option>
+                    <option value="later">Na później</option>
+                </select>
+            </div>
+            <div class="form-group mb-5">
+                <label for="taskDetails" class="input-label">Opis zadania</label>
+                <textarea class="form-control" id="taskDetails" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="taskPartners" class="input-label">Współwykonawca</label>
+                <div class="form-row form-row-flex">
+                    <div class="col mb-3">
+                        <input type="text" class="form-control" placeholder="Imię i nazwisko">
+                    </div>
+                    <div class="col mb-3">
+                        <input type="tel" class="form-control" minlength="9" maxlength="9" placeholder="Numer telefonu">
+                    </div>
+                    <div class="col mb-3">
+                        <input type="email" class="form-control" placeholder="E-mail">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

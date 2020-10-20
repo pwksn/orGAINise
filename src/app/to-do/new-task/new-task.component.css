@@ -1,0 +1,68 @@
+h1, h2, h3, h4, p {
+    color: #000;
+}
+
+hr {
+    width: 100%;
+}
+
+textarea {
+    height: auto !important;
+}
+
+@media (max-width: 700px) {
+    .form-row-flex {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.button-back {
+    width: 4rem;
+    height: 4rem;
+}
+
+.btn-text {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.new-task-box {
+    padding: 4rem 6rem;
+    height: 100%;
+}
+
+.new-task-header {
+    width: 100%;
+    height: 3rem;
+}
+
+.new-task-form {
+    width: 80%;
+}
+
+.form-control {
+    height: 4rem;
+    font-size: 1.75rem;
+}
+
+.form-control::placeholder {
+    font-size: 1.75rem;
+}
+
+.checkbox-big {
+    -ms-transform: scale(1.25); /* IE */
+    -moz-transform: scale(1.25); /* FF */
+    -webkit-transform: scale(1.25); /* Safari and Chrome */
+    -o-transform: scale(1.25); /* Opera */
+    padding: 10px;
+}
+
+.input-label {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+

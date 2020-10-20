@@ -1,0 +1,32 @@
+<div class="tasks-list-box mt-3 pb-3">
+    <ul class="list-group list-group-flush">
+        <li 
+            class="list-group-item d-flex flex-row justify-content-between align-items-center"
+            *ngFor="let task of tasks">
+            {{task}}
+            <div>
+                <button class="btn btn-success mr-3" type="button">
+                    <p class="btn-text d-flex align-items-center justify-content-center mb-0">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2 " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                        </svg>
+                    </p>
+                </button>
+                <button class="btn btn-danger" type="button">
+                    <p class="btn-text d-flex align-items-center justify-content-center mb-0">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </p>
+                </button>
+                <button class="btn btn-info ml-3" type="button">
+                    <p class="btn-text d-flex align-items-center justify-content-center mb-0">
+                        <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                    </p>
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>

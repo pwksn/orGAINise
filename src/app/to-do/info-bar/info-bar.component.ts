@@ -28,7 +28,7 @@ export class InfoBarComponent implements OnInit {
   }
 
   onTaskAdd() {
-    console.log('Add task btn!');
+    this.router.navigateByUrl('/todo/new');
   }
 
   onWidgetClick() {
