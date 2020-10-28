@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
 import { WeatherModule } from './weather/weather.module';
 import { PomodoroModule } from './pomodoro/pomodoro.module';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: LayoutComponent },

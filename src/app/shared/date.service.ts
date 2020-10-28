@@ -17,6 +17,14 @@ export class DateService {
 
     private polishMonthsNames: string[] = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
 
+    get today() {
+        return this.todayDate;
+    }
+
+    get tomorrow() {
+        return this.tomorrowDate;
+    }
+
     get currentDay() {
         return this.currentDayNumber;
     }

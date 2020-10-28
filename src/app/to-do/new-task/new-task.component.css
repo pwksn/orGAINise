@@ -10,6 +10,12 @@ textarea {
     height: auto !important;
 }
 
+button {
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 8rem;
+}
+
 @media (max-width: 700px) {
     .form-row-flex {
         display: flex;

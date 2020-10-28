@@ -7,10 +7,13 @@ import { SoundEffectService } from './sound-effects.service';
 import { NgModule } from "@angular/core";
 import { LocationService } from './location.service';
 import { TasksListComponent } from '../to-do/tasks-list/tasks-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         InfoBarComponent,

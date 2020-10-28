@@ -5,6 +5,7 @@ import { InfoBarComponent } from './info-bar/info-bar.component';
 import { TodayTasksModule } from './today-tasks/today-tasks.module';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 const toDoRoutes: Routes = [
   { 
@@ -26,7 +27,7 @@ const toDoRoutes: Routes = [
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [TaskDetailsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(toDoRoutes),

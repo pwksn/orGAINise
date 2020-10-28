@@ -9,14 +9,14 @@
     </div>
     <hr>    
     <div class="new-task-form mt-5 w-75">
-        <form action="">
+        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
             <div class="form-group mb-5">
                 <label for="taskName" class="input-label">Nazwa zadania</label>
-                <input type="text" class="form-control" id="taskName" autocomplete="off" placeholder="Co chcesz zrobić?">
+                <input type="text" class="form-control" id="taskName" autocomplete="off" formControlName="name" #taskName placeholder="Co chcesz zrobić?">
             </div>
             <div class="form-group mb-5">
-                <label for="taskDate" class="input-label">Termin zadania</label>
-                <select name="taskDate" id="taskDate" class="form-control">
+                <label for="taskDay" class="input-label">Termin zadania</label>
+                <select name="taskDay" id="taskDay" class="form-control" formControlName="day">
                     <option selected value="today">Dziś</option>
                     <option value="tomorrow">Jutro</option>
                     <option value="later">Na później</option>
@@ -24,21 +24,25 @@
             </div>
             <div class="form-group mb-5">
                 <label for="taskDetails" class="input-label">Opis zadania</label>
-                <textarea class="form-control" id="taskDetails" rows="3"></textarea>
+                <textarea class="form-control" id="taskDetails" rows="3" formControlName="details"></textarea>
             </div>
             <div class="form-group">
                 <label for="taskPartners" class="input-label">Współwykonawca</label>
                 <div class="form-row form-row-flex">
                     <div class="col mb-3">
-                        <input type="text" class="form-control" placeholder="Imię i nazwisko">
+                        <input type="text" class="form-control" formControlName="partner" placeholder="Imię i nazwisko">
                     </div>
                     <div class="col mb-3">
-                        <input type="tel" class="form-control" minlength="9" maxlength="9" placeholder="Numer telefonu">
+                        <input type="tel" class="form-control" formControlName="phone" placeholder="Numer telefonu">
                     </div>
                     <div class="col mb-3">
-                        <input type="email" class="form-control" placeholder="E-mail">
+                        <input type="email" class="form-control" formControlName="mail" placeholder="E-mail">
                     </div>
                 </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mr-3" [disabled]="!taskForm.valid">Dodaj</button>
+                <button type="button" class="btn btn-danger ml-3" (click)="onGoBack()" >Anuluj</button>
             </div>
         </form>
     </div>

@@ -28,14 +28,17 @@ export class InfoBarComponent implements OnInit {
   }
 
   onTaskAdd() {
-    this.router.navigateByUrl('/todo/new');
+    this.router.navigate(['/todo/new'], 
+    {queryParams: {
+      day: this.daySelected
+    }});
   }
 
   onWidgetClick() {
     this.router.navigateByUrl('/weather');
   }
 
-  onDaySelected(day) {
+  onDaySelected(day: string) {
     if (day === 'today') {
       this.dayText = 'Dzisiaj';
       this.currentDay = this.dateService.currentDay;
