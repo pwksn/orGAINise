@@ -39,6 +39,10 @@ const appRoutes: Routes = [
       {
         path: 'new',
         loadChildren: () => import('./to-do/new-task/new-task.module').then(m => m.NewTaskModule),
+      }, 
+      {
+        path: 'details',
+        loadChildren: () => import('./to-do/task-details/task-details.module').then(m => m.TaskDetailsModule),
       }
     ]
   },

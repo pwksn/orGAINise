@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Task } from './../task.model';
 import { TasksService } from './../tasks.service';
@@ -14,7 +15,9 @@ export class TasksListComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +48,18 @@ export class TasksListComponent implements OnInit {
   }
 
   onDeleteTask(index: number) {
-    console.log(index); // toDo
     this.tasksService.removeTask(index, this.daySelected);
+  }
+
+  goToDetails(index: number) {
+    console.log(index);
+    this.router.navigate(['../details'], 
+    { 
+      relativeTo: this.route.parent,
+      queryParams: {
+        day: this.daySelected,
+        i: index
+      } });
   }
 
 }

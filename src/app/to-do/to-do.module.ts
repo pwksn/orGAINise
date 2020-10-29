@@ -7,34 +7,34 @@ import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 
-const toDoRoutes: Routes = [
-  { 
-    path: '',
-    loadChildren: () => import('./today-tasks/today-tasks.module').then(m => m.TodayTasksModule),
-  },
-  {
-    path: 'today',
-    loadChildren: () => import('./today-tasks/today-tasks.module').then(m => m.TodayTasksModule),
-  },
-  {
-    path: 'tomorrow',
-    loadChildren: () => import('./tomorrow-tasks/tomorrow-tasks.module').then(m => m.TomorrowTasksModule),
-  }, 
-  {
-    path: 'later',
-    loadChildren: () => import('./later-tasks/later-tasks.module').then(m => m.LaterTasksModule),
-  }
-]
+// const toDoRoutes: Routes = [
+//   { 
+//     path: '',
+//     loadChildren: () => import('./today-tasks/today-tasks.module').then(m => m.TodayTasksModule),
+//   },
+//   {
+//     path: 'today',
+//     loadChildren: () => import('./today-tasks/today-tasks.module').then(m => m.TodayTasksModule),
+//   },
+//   {
+//     path: 'tomorrow',
+//     loadChildren: () => import('./tomorrow-tasks/tomorrow-tasks.module').then(m => m.TomorrowTasksModule),
+//   }, 
+//   {
+//     path: 'later',
+//     loadChildren: () => import('./later-tasks/later-tasks.module').then(m => m.LaterTasksModule),
+//   }
+// ]
 
 @NgModule({
   declarations: [TaskDetailsComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(toDoRoutes),
+    // RouterModule.forChild(toDoRoutes),
     TodayTasksModule
   ],
   exports: [
-    RouterModule,
+    // RouterModule,
   ]
 })
 export class ToDoModule { }

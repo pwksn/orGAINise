@@ -1,0 +1,36 @@
+h1, h2, h3, h4, p {
+    color: #000;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+hr {
+    width: 100%;
+}
+
+.button-back {
+    width: 4rem;
+    height: 4rem;
+}
+
+.button-edit {
+    height: 4rem;
+    font-size: 1.5rem;
+    padding: 0 1.5rem;
+}
+
+.task-details-box {
+    padding: 4rem 6rem;
+    height: 100%;
+}
+
+.task-details-header {
+    width: 100%;
+    height: 3rem;
+}
+
+.task-details-list {
+    width: 80%;
+}
