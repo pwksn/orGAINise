@@ -4,7 +4,7 @@ import { TasksService } from './../tasks.service';
 import { Location } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-task',
@@ -19,6 +19,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
   isEditMode: boolean = false;
   private daySelected: string;
   private task: Task;
+  private taskId: number;
 
   constructor(
     private _location: Location,
@@ -29,8 +30,10 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.initForm();
     this.daySelected = this.dataStorageService.getQueryParam('day');
+    this.getParams();
+    this.initForm();
+    console.log(this.isEditMode);
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +49,13 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       partnerNumber: this.taskForm.value['phone'],
       partnerMail: this.taskForm.value['mail']
     }
-    this.tasksService.addTask(this.task);
+    // this.tasksService.addTask(this.task);
+    if (this.isEditMode) {
+      // this.tasksService.updateTask(this.taskId, this.task, this.task.taskDay);
+      this.changeTask(this.task);
+    } else {
+      this.tasksService.addTask(this.task);
+    }
     this.onGoToTaskList();
   }
 
@@ -55,7 +64,28 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
   }
 
   onGoToTaskList() {
-    this.router.navigate([`../${this.task.taskDay}`], {relativeTo: this.route.parent});
+    this.router.navigateByUrl(`/todo/${this.task.taskDay}`);
+  }
+
+  private changeTask(task: Task) {
+    if (this.daySelected !== task.taskDay) {
+      this.tasksService.removeTask(this.taskId, this.daySelected);
+      this.tasksService.addTask(task);
+    } else {
+      this.tasksService.updateTask(this.taskId, this.task, this.task.taskDay);
+    }
+  }
+
+  private getParams() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.taskId = +params['id'];
+          console.log(this.taskId);
+          this.isEditMode = params['id'] != null;
+          console.log(this.isEditMode);
+        }
+      )
   }
 
   private initForm() {
@@ -67,7 +97,8 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     let partnerMail = '';
 
     if (this.isEditMode) {
-      const task = this.tasksService.getTask(this.id, this.daySelected);
+      console.log(this.taskId, this.daySelected);
+      const task = this.tasksService.getTask(this.taskId, this.daySelected);
       taskName = task.taskName;
       taskDay = task.taskDay;
       taskDetails = task.taskDetails;

@@ -11,6 +11,10 @@
         <app-timer *ngSwitchCase="'long'"></app-timer>
     </div>
     
-    <p class="counter">Bieżąca sesja: {{ pomodoroCount }} cykli Pomodoro.</p>
+    <!-- <p class="counter">Masz  Do dzieła.</p> -->
+    <div [ngSwitch]="this.todayTasksCount">
+        <p class="counter" *ngSwitchCase="0">Nie masz zaplanowanych zadań na dziś.</p>
+        <p class="counter" *ngSwitchDefault>Tyle zadań zaplanowano na dziś: {{todayTasksCount}}. Do dzieła!</p>
+    </div>
     
 </div>

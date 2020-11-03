@@ -21,11 +21,15 @@ const routes: Routes = [
     {
         path: 'new',
         loadChildren: () => import('./new-task/new-task.module').then(m => m.NewTaskModule),
-      }, 
-      {
-        path: 'details',
+    }, 
+    {
+        path: 'details/:id',
         loadChildren: () => import('./task-details/task-details.module').then(m => m.TaskDetailsModule),
-      }
+    },
+    {
+        path: 'edit/:id',
+        loadChildren: () => import('./new-task/new-task.module').then(m => m.NewTaskModule),
+    }
 ]
 
 @NgModule({

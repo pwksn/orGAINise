@@ -16,6 +16,10 @@ button {
     width: 8rem;
 }
 
+input.ng-invalid.ng-dirty {
+    border: 1px solid #E74C3C;
+}
+
 @media (max-width: 700px) {
     .form-row-flex {
         display: flex;
@@ -70,5 +74,4 @@ button {
     font-size: 1.5rem;
     font-weight: 500;
 }
-
 

@@ -64,8 +64,17 @@ export class TasksService {
     }
   }
 
-  public updateTask(index: number, newTask: Task) {
-
+  public updateTask(index: number, newTask: Task, day: string) {
+    if (day === 'today') {
+      this.todayTasks[index] = newTask;
+      this.tasksChanged.next(this.todayTasks.slice());
+    } else if (day === 'tomorrow') {
+      this.tomorrowTasks[index] = newTask;
+      this.tasksChanged.next(this.tomorrowTasks.slice());
+    } else {
+      this.laterTasks[index] = newTask;
+      this.tasksChanged.next(this.laterTasks.slice());
+    }
   }
 
   public setTasks(tasks: Task[]) {

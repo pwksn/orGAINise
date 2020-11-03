@@ -3,37 +3,6 @@ import { Injectable } from '@angular/core';
 import { LocationService } from '../shared/location.service';
 import { WeatherForecastResponse, WeatherCurrentResponse, WeatherDataFields, NextDayWeather } from './weather-response.model';
 
-// used with first get() down below
-// export interface WeatherResponseData {
-//     main: {
-//         temp: number,
-//         feels_like: number,
-//         pressure: number,
-//         humidity: number,
-//     },
-//     name: string,
-//     weather: [{
-//         description: string,
-//         icon: string
-//     }]
-// }
-
-// export interface WeatherDataFields {
-//     locationName: string,
-//     currentTemp: number,
-//     feelsLikeTemp: number,
-//     weatherDesc: string,
-//     weatherIconName: string,
-//     pressure: number,
-//     humidity: number,
-// }
-
-// export interface NextDayWeather {
-//     minTemp: number,
-//     maxTemp: number,
-//     weatherDesc: string,
-// }
-
 @Injectable({providedIn: 'root'})
 export class WeatherService {
     constructor(

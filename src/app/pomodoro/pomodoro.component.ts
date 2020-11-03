@@ -1,6 +1,7 @@
+import { TasksService } from './../to-do/tasks.service';
 import { Subscription } from 'rxjs';
 import { TimerService } from './timer/timer.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, OnChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
@@ -9,22 +10,26 @@ import { Router } from '@angular/router';
   templateUrl: './pomodoro.component.html',
   styleUrls: ['./pomodoro.component.css']
 })
-export class PomodoroComponent implements OnInit, OnDestroy{
+export class PomodoroComponent implements OnInit, OnDestroy {
 
   mode: string = 'focus';
   message: string;
   pomodoroCount = 0;
   private nextModeSub: Subscription;
+  public todayTasksCount: number;
 
   constructor(
     private modalService: NgbModal,
     private timerService: TimerService,
+    private tasksService: TasksService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.mode = this.timerService.getCurrentMode();
     this.pomodoroCount = this.timerService.getCyclesDone();
+    this.todayTasksCount = this.tasksService.getTodayTasks().length;
+    console.log(this.todayTasksCount);
     this.onModeChange();
   }
 

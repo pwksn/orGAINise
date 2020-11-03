@@ -1,3 +1,4 @@
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TasksService } from './../tasks.service';
 import { Task } from './../task.model';
 import { DataStorageService } from './../../shared/data-storage.service';
@@ -19,14 +20,26 @@ export class TaskDetailsComponent implements OnInit {
   constructor(
     private _location: Location,
     private dataStorageService: DataStorageService,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.daySelected = this.dataStorageService.getQueryParam('day');
-    this.taskIndex = +this.dataStorageService.getQueryParam('i');
+    // this.taskIndex = +this.dataStorageService.getQueryParam('i');
+    this.getTaskId(); // get index from route param insted
     this.setTask(this.daySelected);
     console.log(this.taskIndex);
+  }
+
+  private getTaskId() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.taskIndex = +params['id'];
+        }
+      )
   }
 
   onGoBack() {
@@ -34,7 +47,14 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   onTaskEdit() {
-    console.log('task edit');
+    // console.log('task edit');
+    // console.log(this.taskIndex);
+    this.router.navigate(['../edit', this.taskIndex],
+    {
+      queryParams: {
+        day: this.daySelected,
+      }
+    });
   }
 
   setTask(day: string) {
