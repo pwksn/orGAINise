@@ -38,6 +38,10 @@ svg {
     margin: auto;
 }
 
+.no-data-warning {
+    margin: 0;
+}
+
 .self-center {
     text-align: center;
 }

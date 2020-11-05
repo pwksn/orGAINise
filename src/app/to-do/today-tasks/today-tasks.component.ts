@@ -1,3 +1,4 @@
+import { TasksService } from './../tasks.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./today-tasks.component.css']
 })
 export class TodayTasksComponent implements OnInit {
+  public todayTasksCounter: number;
 
-  constructor() { }
+  constructor(
+    private tasksService: TasksService
+  ) { }
 
   ngOnInit(): void {
+    this.todayTasksLength();
+  }
+
+  private todayTasksLength() {
+    this.todayTasksCounter = this.tasksService.getTodayTasks().length;
   }
 
 }
