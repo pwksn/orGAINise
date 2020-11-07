@@ -19,10 +19,6 @@ export class WeatherWidgetComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.weatherToday = this.weatherService.getCurrentWeather();
-    // this.weatherTomorrow = this.weatherService.nextDayWeather;
-    // this.temperature = this.weatherToday.currentTemp;
-    // this.iconCode = this.weatherToday.weatherIconName;
     if (this.daySelected === 'today') {
       this.weatherToday = this.weatherService.getCurrentWeather();
       this.temperature = this.weatherToday.currentTemp;

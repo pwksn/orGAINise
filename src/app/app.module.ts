@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { CommonModule } from '@angular/common';
 import { WeatherModule } from './weather/weather.module';
 import { PomodoroModule } from './pomodoro/pomodoro.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [

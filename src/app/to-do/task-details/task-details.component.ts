@@ -47,8 +47,6 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   onTaskEdit() {
-    // console.log('task edit');
-    // console.log(this.taskIndex);
     this.router.navigate(['../edit', this.taskIndex],
     {
       queryParams: {

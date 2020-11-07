@@ -15,9 +15,7 @@ export class SidebarComponent implements OnInit {
   }
 
   onSubmenuToggle() {
-    console.log('toggle');
     this.isExpanded = !this.isExpanded;
-    console.log(this.isExpanded);
     return this.isExpanded;
   }
 

@@ -25,7 +25,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     private _location: Location,
     private tasksService: TasksService,
     private dataStorageService: DataStorageService,
-    private router: Router, // toDo navigaton service in shared
+    private router: Router,
     private route: ActivatedRoute
   ) { }
 
@@ -49,9 +49,8 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       partnerNumber: this.taskForm.value['phone'],
       partnerMail: this.taskForm.value['mail']
     }
-    // this.tasksService.addTask(this.task);
+    
     if (this.isEditMode) {
-      // this.tasksService.updateTask(this.taskId, this.task, this.task.taskDay);
       this.changeTask(this.task);
     } else {
       this.tasksService.addTask(this.task);

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/todo', pathMatch: 'full'},
+    { path: '', redirectTo: '/pomodoro', pathMatch: 'full'},
     { 
         path: 'todo',
         loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)
@@ -14,6 +14,13 @@ const appRoutes: Routes = [
     {
         path: 'pomodoro',
         loadChildren: () => import('./pomodoro/pomodoro.module').then(m => m.PomodoroModule)
+    },
+    {
+        path: '404',
+        loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)
+    },
+    {
+        path: '**', redirectTo: '/404'
     }
 ];
 

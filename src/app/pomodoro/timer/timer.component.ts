@@ -9,11 +9,6 @@ import { interval, Subject, Subscription } from 'rxjs';
 })
 export class TimerComponent implements OnInit, OnDestroy {
 
-  // @Input() m: number;
-  // @Input() s: number;
-
-  // @Output() onComplete = new Subject<any>();
-
   private currentMins: number = this.timerService.getValue()[0];
   private currentSecs: number = this.timerService.getValue()[1];
 
