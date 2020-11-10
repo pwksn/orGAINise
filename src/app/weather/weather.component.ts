@@ -2,6 +2,7 @@ import { DateService } from './../shared/date.service';
 import { Component, OnInit } from '@angular/core';
 import { NextDayWeather, WeatherDataFields } from './weather-response.model';
 import { WeatherService } from './weather.service';
+import { LocationService } from '../shared/location.service';
 
 @Component({
   selector: 'app-weather',
@@ -15,9 +16,13 @@ export class WeatherComponent implements OnInit {
 
   constructor(
     private weatherService: WeatherService,
+    private locationService: LocationService
   ) { }
 
   ngOnInit() {
+    this.locationService.getPosition().then(pos => {
+      this.weatherService.getWeather(pos.lng, pos.lat);
+    })
     console.log(this.weatherService.getCurrentWeather());
     this.fetchedLocation = this.weatherService.getCurrentWeather();
     this.nextDayForecast = this.weatherService.getNextDayWeather();

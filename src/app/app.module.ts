@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { WeatherModule } from './weather/weather.module';
 import { PomodoroModule } from './pomodoro/pomodoro.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    WeatherModule,
-    ToDoModule,
-    PomodoroModule,
+    // WeatherModule,
+    // ToDoModule,
+    // PomodoroModule,
     SharedModule,
     CommonModule,
     AppRoutingModule,

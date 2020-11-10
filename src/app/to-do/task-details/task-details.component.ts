@@ -47,11 +47,12 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   onTaskEdit() {
-    this.router.navigate(['../edit', this.taskIndex],
+    this.router.navigate(['../../../edit', this.taskIndex],
     {
       queryParams: {
         day: this.daySelected,
-      }
+      },
+      relativeTo: this.route
     });
   }
 
