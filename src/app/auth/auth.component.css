@@ -5,7 +5,7 @@ h2 {
 }
 
 input { 
-    width: 80%;
+    width: 100%;
 }
 
 form {
@@ -16,6 +16,10 @@ form {
 input { 
     height: 4rem;
     font-size: 2rem;
+}
+
+input.ng-invalid.ng-dirty {
+    border: 1px solid #E74C3C;
 }
 
 button {
@@ -32,7 +36,7 @@ button {
 .auth-form {
     width: 50%;
     height: max-content;
-    min-height: 60%;
+    min-height: 70%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4rem;
@@ -47,6 +51,10 @@ button {
 
 .auth-form-mid {
     width: 100% !important;
+}
+
+.auth-form-mid-box {
+    width: 80%;
 }
 
 .auth-form-bottom {
@@ -65,4 +73,8 @@ button {
 
 .form-box {
     height: 100%;
+}
+
+.form-group {
+    width: 100%;
 }

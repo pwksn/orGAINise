@@ -8,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   isExpanded = false; // to toggle submenu
+  isMobile: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+    if (window.innerWidth < 992) { // 768px portrait
+      this.isMobile = true;
+    }
   }
 
   onSubmenuToggle() {
@@ -21,5 +25,9 @@ export class SidebarComponent implements OnInit {
 
   onSubmenuClose() {
     this.isExpanded = false;
+  }
+
+  onPerformLogout() {
+    console.log('logout from sidenav clicked!');
   }
 }

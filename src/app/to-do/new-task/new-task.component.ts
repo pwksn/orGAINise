@@ -29,6 +29,8 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute
   ) { }
 
+  get taskName() { return this.taskForm.get('taskName') };
+
   ngOnInit(): void {
     this.daySelected = this.dataStorageService.getQueryParam('day');
     this.getParams();

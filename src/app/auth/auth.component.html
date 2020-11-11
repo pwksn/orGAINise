@@ -5,42 +5,65 @@
                 <div class="auth-form-top d-flex flex-column align-items-center justify-content-center">
                     <h2>{{isLoggingMode ? 'LOGOWANIE' : 'REJESTRACJA'}}</h2>
                 </div>
-                <div class="auth-form-mid">
-                    <div *ngIf="!isLoggingMode" class="d-flex flex-column justify-content-center align-items-center mb-0 form-group">
-                        <input
+                <div class="auth-form-mid d-flex flex-column align-items-center">
+                    <div *ngIf="!isLoggingMode" class="d-flex flex-column justify-content-center align-items-center mb-0 auth-form-mid-box">
+                        <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                            <input
                             type="text" 
                             class="form-control mb-3 mt-5" 
                             id="userName" 
                             formControlName="userName" 
                             placeholder="Login" 
                             name="userName">
-                                
-                        <input
+                            <div *ngIf="userName.errors?.required && (userName.touched)">
+                                <h5 class="text-danger">Login jest wymagany.</h5>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                            <input
                             type="password" 
                             class="form-control mt-3 mb-3" 
                             id="userPassword" 
                             autocomplete="off" 
                             formControlName="userPassword"
                             placeholder="Hasło (min. 6 znaków)">
-    
-                        <input 
+                            <div *ngIf="userPassword.errors?.required && (userPassword.touched)">
+                                <h5 class="text-danger">Hasło jest wymagane.</h5>
+                            </div>
+                            <div *ngIf="userPassword.errors?.minlength && (userPassword.touched)">
+                                <h5 class="text-danger">Min. długość hasła to 6 znaków.</h5>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                            <input 
                             type="password" 
                             class="form-control mt-3 mb-3" 
                             id="userPasswordRepeat"
                             autocomplete="off"
                             formControlName="userPasswordRepeat"
                             placeholder="Powtórz hasło">
-                                
-                        <input
+                            <div *ngIf="userPasswordRepeat.errors?.required && (userPasswordRepeat.touched)">
+                                <h5 class="text-danger">Powtórz hasło.</h5>
+                            </div>
+                            <div *ngIf="userPasswordRepeat.errors?.mustMatch && (userPasswordRepeat.touched)">
+                                <h5 class="text-danger">Hasła nie zgadzają się.</h5>
+                            </div>
+                        </div>                            
+                        <div class="form-group d-flex flex-column justify-content-center align-items-center mb-5">
+                            <input
                             type="text" 
-                            class="form-control mt-3 mb-5" 
+                            class="form-control mt-3 mb-3" 
                             id="userNick" 
                             autocomplete="off" 
                             formControlName="userNick" 
-                            placeholder="Twoje imię lub pseudonim">                    
+                            placeholder="Twoje imię lub pseudonim">     
+                            <div *ngIf="userNick.errors?.required && (userNick.touched)">
+                                <h5 class="text-danger">To pole jest wymagane.</h5>
+                            </div> 
+                        </div>             
                     </div>
     
-                    <div *ngIf="isLoggingMode" class="d-flex flex-column justify-content-center align-items-center mb-0">
+                    <div *ngIf="isLoggingMode" class="d-flex flex-column justify-content-center align-items-center mb-0 auth-form-mid-box">
                         <input
                             type="text"
                             class="form-control mb-3 mt-5" 

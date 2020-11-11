@@ -15,7 +15,9 @@ export class DateService {
     private tomorrowMonthNumber = this.tomorrowDate.getMonth();
     private tomorrowYearNumber = this.tomorrowDate.getFullYear();
 
-    private polishMonthsNames: string[] = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+    // private polishMonthsNames: string[] = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+
+    private polishMonthsNames: string[] = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 
     get today() {
         return this.todayDate;
