@@ -46,3 +46,22 @@ export class NextDayWeather {
     weatherDesc?: string;
     weatherIconName?: string;
 }
+
+export class AirConditionResponse {
+    current: {
+        indexes: [{
+            color: string,
+            description: string,
+        }],
+        values: [{
+            name: string,
+            value: string
+        }]
+    }
+}
+
+export class AirConditionData {
+    color?: string;
+    description?: string;
+    value?: string;
+}

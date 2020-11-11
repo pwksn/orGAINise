@@ -5,6 +5,8 @@
         </svg>
         <h3>{{ fetchedLocation.locationName }}</h3>
     </div>
+
+    <!-- Weather details -->
     <div class="d-flex flex-column align-items-center">
         <div class="d-flex align-items-center justify-content-center">
             <img src="http://openweathermap.org/img/wn/{{fetchedLocation.weatherIconName}}@2x.png" alt="">
@@ -12,12 +14,20 @@
         </div>
         <p>Temp. odczuwalna: {{ fetchedLocation.feelsLikeTemp | number: '1.1-1' }}&deg;C</p>
         <h2 class="self-center">{{ fetchedLocation.weatherDesc }}</h2>
+        <!-- toDo: ngif: pobralo airly ponizej, kolor span -->
+        <div class="d-flex justify-content-center align-items-center">
+            <h4>
+                {{ airConditions.description }} Index CAQI: <span>{{ airConditions.value }}</span> 
+            </h4>
+        </div>
         <div class="d-flex justify-content-center align-items-center my-3">
             <p class="mx-4">Ciśnienie: {{ fetchedLocation.pressure }} hPa</p>
             <p class="mx-4">Wilgotność: {{ fetchedLocation.humidity }}%</p>
         </div>
         <button type="button" class="btn btn-primary" (click)="onWeatherRefresh()">Odśwież</button>
     </div>
+
+    <!-- Tomorrow weather -->
     <div class="d-flex align-items-center justify-content-center">
         <h4 class="my-0 mr-2">Jutro:</h4>
         <h4 class="mr-4 my-0">{{ nextDayForecast.weatherDesc }}</h4>
@@ -42,6 +52,7 @@
     </div>
 </div>
 
+<!-- Error placeholder -->
 <div *ngIf="!isWeatherFetched" class="module-box weather-box d-flex flex-column align-items-center justify-content-center">
     <svg width="8rem" height="8rem" viewBox="0 0 16 16" class="bi bi-shield-fill-exclamation no-data-warning mb-5" fill="#fff" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M8 .5c-.662 0-1.77.249-2.813.525a61.11 61.11 0 0 0-2.772.815 1.454 1.454 0 0 0-1.003 1.184c-.573 4.197.756 7.307 2.368 9.365a11.192 11.192 0 0 0 2.417 2.3c.371.256.715.451 1.007.586.27.124.558.225.796.225s.527-.101.796-.225c.292-.135.636-.33 1.007-.586a11.191 11.191 0 0 0 2.418-2.3c1.611-2.058 2.94-5.168 2.367-9.365a1.454 1.454 0 0 0-1.003-1.184 61.09 61.09 0 0 0-2.772-.815C9.77.749 8.663.5 8 .5zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>

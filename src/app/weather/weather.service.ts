@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocationService } from '../shared/location.service';
-import { WeatherForecastResponse, WeatherCurrentResponse, WeatherDataFields, NextDayWeather } from './weather-response.model';
+import { WeatherForecastResponse, WeatherCurrentResponse, WeatherDataFields, NextDayWeather, AirConditionResponse, AirConditionData } from './weather-response.model';
 
 @Injectable({providedIn: 'root'})
 export class WeatherService {
@@ -27,6 +27,12 @@ export class WeatherService {
         weatherDesc: '',
         weatherIconName: '',
     };
+
+    public currentAirCondition: AirConditionData = {
+        color: '',
+        description: '',
+        value: '',
+    }
     
     getWeather(longitude: number, latitude: number) {
         // Get current weather
@@ -57,6 +63,17 @@ export class WeatherService {
         )
     }
 
+    getAirCondition(longitude: number, latitude: number) {
+        this.http.get<any>('https://airapi.airly.eu/v2/measurements/point?lat='+ latitude +'&lng='+ longitude +'&apikey=Oeam5hSEwezqPTEj1ElYB4i1uOh9ZD5b').subscribe(
+            response => {
+                this.currentAirCondition.color = response.current.indexes[0].color;
+                this.currentAirCondition.description = response.current.indexes[0].description;
+                this.currentAirCondition.value = response.current.indexes[0].value;
+                console.log(this.currentAirCondition);
+            }
+        )
+    }
+
     getCurrentWeather() {
         return this.currentWeatherData;
     }
@@ -65,9 +82,14 @@ export class WeatherService {
         return this.nextDayWeather;
     }
 
+    public getAirConditions() { 
+        return this.currentAirCondition;
+    }
+
     refreshWeather() {
         this.locationService.getPosition().then(pos => {
             this.getWeather(pos.lng, pos.lat);
+            this.getAirCondition(pos.lng, pos.lat);
         })   
         this.getCurrentWeather();
         this.getNextDayWeather();

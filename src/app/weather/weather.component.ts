@@ -1,6 +1,6 @@
 import { DateService } from './../shared/date.service';
 import { Component, OnInit } from '@angular/core';
-import { NextDayWeather, WeatherDataFields } from './weather-response.model';
+import { NextDayWeather, WeatherDataFields, AirConditionData } from './weather-response.model';
 import { WeatherService } from './weather.service';
 import { LocationService } from '../shared/location.service';
 
@@ -10,8 +10,11 @@ import { LocationService } from '../shared/location.service';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-  fetchedLocation: WeatherDataFields;
-  nextDayForecast: NextDayWeather;
+  public fetchedLocation: WeatherDataFields;
+  public nextDayForecast: NextDayWeather;
+  public airConditions: AirConditionData;
+  public indexCAQI: string;
+
   public isWeatherFetched: boolean;
 
   constructor(
@@ -22,18 +25,18 @@ export class WeatherComponent implements OnInit {
   ngOnInit() {
     this.locationService.getPosition().then(pos => {
       this.weatherService.getWeather(pos.lng, pos.lat);
+      this.weatherService.getAirCondition(pos.lng, pos.lat);
     })
-    console.log(this.weatherService.getCurrentWeather());
     this.fetchedLocation = this.weatherService.getCurrentWeather();
     this.nextDayForecast = this.weatherService.getNextDayWeather();
+    this.airConditions = this.weatherService.getAirConditions();
+    this.indexCAQI = this.setAirQuality(+this.airConditions.value);
+    console.log(this.airConditions);
+    console.log(this.indexCAQI);
     this.checkWeatherFetched();
-    console.log(this.isWeatherFetched);
-    console.log(this.fetchedLocation);
-    console.log(this.nextDayForecast);
   }
 
   onWeatherRefresh() {
-    console.log('Refreshed!');
     this.weatherService.refreshWeather();
   }
 
@@ -45,4 +48,18 @@ export class WeatherComponent implements OnInit {
     }
   }
 
+  setAirQuality(caqiValue: number) {
+    console.log(caqiValue);
+    if (caqiValue >= 0 && caqiValue < 25) {
+      return 'veryLow';
+    } else if (caqiValue >= 25 && caqiValue < 50) {
+      return 'low';
+    } else if (caqiValue >= 51 && caqiValue < 75) {
+      return 'medium';
+    } else if (caqiValue >= 76 && caqiValue < 100) {
+      return 'high';
+    } else {
+      return 'veryHigh'
+    }
+  }
 }
