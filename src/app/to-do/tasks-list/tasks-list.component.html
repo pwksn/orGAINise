@@ -3,7 +3,7 @@
         <li 
             class="list-group-item d-flex flex-row justify-content-between align-items-center"
             *ngFor="let task of tasks; let i = index">
-            {{task.taskName}}
+            <h2 [class.terminated]="task.isTerminated">{{task.taskName}}</h2>
             <div>
                 <button class="btn btn-success mr-3" type="button">
                     <p class="btn-text d-flex align-items-center justify-content-center mb-0">

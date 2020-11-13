@@ -1,3 +1,5 @@
+import { TasksService } from './to-do/tasks.service';
+import { Task } from './to-do/task.model';
 import { Router } from '@angular/router';
 import { Component, OnInit, OnChanges, AfterContentChecked } from '@angular/core';
 import { WeatherService } from './weather/weather.service';
@@ -12,20 +14,23 @@ export class AppComponent implements OnInit, AfterContentChecked {
   title = 'orgApp2';
   userPosition = {};
   currentRoute: string;
+  tasks: Task[];
 
   constructor(
     private weatherService: WeatherService,
     private locationService: LocationService,
-    private router: Router
+    private router: Router,
+    private tasksService: TasksService
   ) {}
 
   ngOnInit() {
+    this.tasks = this.tasksService.mockTasks;
     this.locationService.getPosition().then(pos => {
       this.weatherService.getWeather(pos.lng, pos.lat);
-    })
-    console.log(this.router.url);
+    });
+    this.tasksService.sortTasksByDay(this.tasks);
   }
-
+  
   ngAfterContentChecked() {
     this.currentRoute = this.router.url;
   }

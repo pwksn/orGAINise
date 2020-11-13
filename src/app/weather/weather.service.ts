@@ -29,7 +29,6 @@ export class WeatherService {
     };
 
     public currentAirCondition: AirConditionData = {
-        color: '',
         description: '',
         value: '',
     }
@@ -66,7 +65,6 @@ export class WeatherService {
     getAirCondition(longitude: number, latitude: number) {
         this.http.get<any>('https://airapi.airly.eu/v2/measurements/point?lat='+ latitude +'&lng='+ longitude +'&apikey=Oeam5hSEwezqPTEj1ElYB4i1uOh9ZD5b').subscribe(
             response => {
-                this.currentAirCondition.color = response.current.indexes[0].color;
                 this.currentAirCondition.description = response.current.indexes[0].description;
                 this.currentAirCondition.value = response.current.indexes[0].value;
                 console.log(this.currentAirCondition);

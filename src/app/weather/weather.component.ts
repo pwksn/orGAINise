@@ -13,9 +13,10 @@ export class WeatherComponent implements OnInit {
   public fetchedLocation: WeatherDataFields;
   public nextDayForecast: NextDayWeather;
   public airConditions: AirConditionData;
-  public indexCAQI: string;
+  public indexCAQI: number;
 
   public isWeatherFetched: boolean;
+  public isAirFetched: boolean;
 
   constructor(
     private weatherService: WeatherService,
@@ -30,10 +31,11 @@ export class WeatherComponent implements OnInit {
     this.fetchedLocation = this.weatherService.getCurrentWeather();
     this.nextDayForecast = this.weatherService.getNextDayWeather();
     this.airConditions = this.weatherService.getAirConditions();
-    this.indexCAQI = this.setAirQuality(+this.airConditions.value);
+    this.indexCAQI = +this.airConditions.value;
     console.log(this.airConditions);
-    console.log(this.indexCAQI);
+    // console.log(this.indexCAQI);
     this.checkWeatherFetched();
+    this.checkAirFetched();
   }
 
   onWeatherRefresh() {
@@ -48,18 +50,11 @@ export class WeatherComponent implements OnInit {
     }
   }
 
-  setAirQuality(caqiValue: number) {
-    console.log(caqiValue);
-    if (caqiValue >= 0 && caqiValue < 25) {
-      return 'veryLow';
-    } else if (caqiValue >= 25 && caqiValue < 50) {
-      return 'low';
-    } else if (caqiValue >= 51 && caqiValue < 75) {
-      return 'medium';
-    } else if (caqiValue >= 76 && caqiValue < 100) {
-      return 'high';
+  checkAirFetched() {
+    if (this.airConditions.description.length) {
+      this.isAirFetched = true;
     } else {
-      return 'veryHigh'
+      this.isAirFetched = false;
     }
   }
 }

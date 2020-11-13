@@ -8,6 +8,11 @@ ul {
     overflow-y: auto;
 }
 
+h2 {
+    color: #000;
+    font-weight: 400;
+}
+
 .list-group-item {
     font-size: 1.8rem;
     background-color: #f8f9fa;
@@ -18,4 +23,7 @@ button {
     height: 3.5rem;
 }
 
-
+.terminated {
+    color: red;
+    font-weight: 500;
+}

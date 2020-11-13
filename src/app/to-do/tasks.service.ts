@@ -11,7 +11,17 @@ export class TasksService {
   private todayTasks: Task[] = [];
   private tomorrowTasks: Task[] = [];
   private laterTasks: Task[] = [];
+  private terminatedTasks: Task[] = [];
+  public allTasks: Task[] = [];
   public tasksChanged = new Subject<Task[]>();
+
+  // mock tasks
+  public mockTasks: Task[] = [
+    {taskName: 'Today task test', taskDate: 1605135600000, taskDetails: 'test opis'},
+    {taskName: 'Yesterday task test', taskDate: 1605135600000, taskDetails: 'test opis 111'},
+    {taskName: 'Tomorrow task test', taskDate: 1605222000000, taskDetails: 'test opis 123'},
+    {taskName: 'Later task test', taskDate: 1607222000000, taskDetails: 'test opis 123'},
+  ]
 
   constructor(
     private dateService: DateService
@@ -25,6 +35,10 @@ export class TasksService {
     } else {
       return this.laterTasks[index];
     }
+  }
+
+  public getTerminatedTasks() {
+    return this.terminatedTasks.slice();
   }
 
   public getTodayTasks() {
@@ -49,6 +63,7 @@ export class TasksService {
     } else {
       this.laterTasks.push(task);
     }
+    console.log(task);
   }
 
   public removeTask(index: number, day: string) {
@@ -74,6 +89,28 @@ export class TasksService {
     } else {
       this.laterTasks[index] = newTask;
       this.tasksChanged.next(this.laterTasks.slice());
+    }
+  }
+
+  public sortTasksByDay(allTasks: Task[]) {
+    const todayDate = this.dateService.today;
+    const tomorrowDate = this.dateService.tomorrow;
+
+    for (const task of allTasks) {
+      if (task.taskDate === todayDate) {
+        task.taskDay = 'today';
+        this.todayTasks.push(task);
+      } else if (task.taskDate === tomorrowDate) {
+        task.taskDay = 'tomorrow';
+        this.tomorrowTasks.push(task);
+      } else if (task.taskDate > tomorrowDate) {
+        task.taskDay="later";
+        this.laterTasks.push(task);
+      } else if(task.taskDate < todayDate) {
+        task.taskDay="today";
+        task.isTerminated = true;
+        this.todayTasks.push(task);
+      }
     }
   }
 

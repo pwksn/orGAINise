@@ -1,3 +1,4 @@
+import { DateService } from './../../shared/date.service';
 import { DataStorageService } from './../../shared/data-storage.service';
 import { Task } from './../task.model';
 import { TasksService } from './../tasks.service';
@@ -25,6 +26,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     private _location: Location,
     private tasksService: TasksService,
     private dataStorageService: DataStorageService,
+    private dateService: DateService,
     private router: Router,
     private route: ActivatedRoute
   ) { }

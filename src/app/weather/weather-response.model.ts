@@ -61,7 +61,6 @@ export class AirConditionResponse {
 }
 
 export class AirConditionData {
-    color?: string;
     description?: string;
     value?: string;
 }

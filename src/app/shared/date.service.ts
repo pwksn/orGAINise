@@ -20,11 +20,11 @@ export class DateService {
     private polishMonthsNames: string[] = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 
     get today() {
-        return this.todayDate;
+        return this.todayDate.setHours(0, 0, 0, 0);
     }
 
     get tomorrow() {
-        return this.tomorrowDate;
+        return this.tomorrowDate.setHours(0, 0, 0, 0);;
     }
 
     get currentDay() {

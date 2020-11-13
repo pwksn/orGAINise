@@ -1,9 +1,10 @@
 export class Task { 
     taskName?: string;
-    taskDate?: Date;
+    taskDate?: number;
     taskDay?: string;
     taskDetails?: string;
     partnerName?: string;
     partnerNumber?: string; // toDo - number?
     partnerMail?: string;
+    isTerminated?: boolean;
 }
