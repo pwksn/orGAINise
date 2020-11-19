@@ -15,7 +15,7 @@ export class TimerService {
   timerInterval = new Subject<number>();
   subscription: Subscription;
   cyclesDone: number = 0;
-  value: number[] = [25, 0];
+  value: number[] = [0, 7];
   startingMinutes: number = this.value[0];
   startingSeconds: number = this.value[1];
   currentMode: string = 'focus';

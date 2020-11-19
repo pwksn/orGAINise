@@ -29,7 +29,6 @@ export class TasksListComponent implements OnInit {
         }
       )
       if (this.daySelected === 'today') {
-        // this.tasks = this.tasksService.getTodayTasks().concat(this.tasksService.getTerminatedTasks());
         this.tasks = this.tasksService.getTerminatedTasks().concat(this.tasksService.getTodayTasks());
         console.log(this.tasks);
       } else if (this.daySelected === 'tomorrow') {

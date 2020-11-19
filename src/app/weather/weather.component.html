@@ -15,7 +15,7 @@
         <p>Temp. odczuwalna: {{ fetchedLocation.feelsLikeTemp | number: '1.1-1' }}&deg;C</p>
         <h2 class="self-center">{{ fetchedLocation.weatherDesc }}</h2>
         <!-- toDo: ngif: pobralo airly ponizej, kolor span -->
-        <div *ngIf="isAirFetched" class="d-flex justify-content-center align-items-center">
+        <div *ngIf="airConditions.value" class="d-flex justify-content-center align-items-center">
             <h4 class="d-flex align-items-center justify-content-center">
                 {{ airConditions.description }} Index CAQI: <span class="d-flex align-items-center justify-content-center ml-2">{{ airConditions.value }} <app-air-condition-emoji class="ml-3" [caqiValue]="indexCAQI"></app-air-condition-emoji></span> 
             </h4>

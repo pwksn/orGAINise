@@ -6,12 +6,11 @@ import { Injectable } from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class DataStorageService {
-    private allTasks: Task[];
+    // private allTasks: Task[];
     
     constructor(
         private http: HttpClient,
         private route: ActivatedRoute,
-        private tasksService: TasksService
     ) {}
 
     public getQueryParam(param: string) {
@@ -19,7 +18,13 @@ export class DataStorageService {
     }
 
     public storeTasks(tasks: Task[]) {
-        this.allTasks = this.tasksService.mockTasks;
-        this.http.put('https://orgainise-webapp.firebaseio.com/allTasks.json', this.allTasks);
+        return this.http.put('https://orgainise-webapp.firebaseio.com/allTasks.json', tasks)
+            .subscribe(response => console.log(response));
+    }
+
+    public fetchTasks() {
+        // this.http.get<Task[]>('https://orgainise-webapp.firebaseio.com/allTasks.json')
+        //     .subscribe(tasks => console.log(tasks));
+        return this.http.get<Task[]>('https://orgainise-webapp.firebaseio.com/allTasks.json');
     }
 }

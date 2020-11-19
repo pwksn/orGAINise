@@ -56,8 +56,10 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     
     if (this.isEditMode) {
       this.changeTask(this.task);
+      this.tasksService.storeAllTasks();
     } else {
       this.tasksService.addTask(this.task);
+      this.tasksService.storeAllTasks();
     }
     this.onGoToTaskList();
   }
@@ -72,11 +74,13 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
 
   private changeTask(task: Task) {
     if (this.daySelected !== task.taskDay) {
-      this.tasksService.removeTask(this.taskId, this.daySelected);
+      // this.tasksService.removeTask(this.taskId, this.daySelected); //toDo
+      this.tasksService.removeEditedTask(this.taskId,this.daySelected);
       this.tasksService.addTask(task);
     } else {
       this.tasksService.updateTask(this.taskId, this.task, this.task.taskDay);
     }
+    // this.tasksService.storeAllTasks();
   }
 
   private getParams() {
