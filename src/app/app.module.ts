@@ -1,3 +1,4 @@
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ToDoModule } from './to-do/to-do.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutComponent } from './layout/layout.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 
 import { } from './shared/location.service';
@@ -36,7 +37,13 @@ import { AuthComponent } from './auth/auth.component';
     AppRoutingModule,
     NgbModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptorService, 
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

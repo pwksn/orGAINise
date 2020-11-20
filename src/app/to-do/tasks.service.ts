@@ -147,5 +147,12 @@ export class TasksService {
 
   }
 
+  public clearAllTasks() {
+    this.allTasks = [];
+    this.todayTasks = [];
+    this.tomorrowTasks = [];
+    this.laterTasks = [];
+  }
+
 
 }

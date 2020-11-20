@@ -1,5 +1,5 @@
 <div class="wrapper" *ngIf="!isMobile">
-    <nav id="sidebar" class="bg-primary">
+    <nav id="sidebar" class="bg-primary" *ngIf="isAuthenticated">
         <ul class="list-unstyled components">
             <li class="list-item">
                 <a class="d-flex align-items-center" (click)="onSubmenuToggle()">
@@ -84,7 +84,7 @@
 <!-- Mobile view below -->
 
 <div class="wrapper" *ngIf="isMobile">
-    <nav id="sidebar" class="bg-primary">
+    <nav id="sidebar" class="bg-primary" *ngIf="isAuthenticated">
         <ul class="list-unstyled components">
             <li class="list-item">
                 <a class="d-flex align-items-center" (click)="onSubmenuToggle()" routerLinkActive="sidebar-active" [routerLinkActiveOptions]="{exact: false}">

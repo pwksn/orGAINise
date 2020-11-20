@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/todo/today', pathMatch: 'full'},
+    { path: '', redirectTo: '/auth', pathMatch: 'full'},
     { 
         path: 'todo',
         loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)

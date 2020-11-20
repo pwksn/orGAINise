@@ -1,3 +1,4 @@
+import { AuthService } from './auth/auth.service';
 import { DataStorageService } from './shared/data-storage.service';
 import { TasksService } from './to-do/tasks.service';
 import { Task } from './to-do/task.model';
@@ -22,14 +23,19 @@ export class AppComponent implements OnInit, AfterContentChecked {
     private locationService: LocationService,
     private router: Router,
     private tasksService: TasksService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     // this.tasks = this.tasksService.mockTasks;
-    this.dataStorageService.fetchTasks().subscribe(
-      fetchedTasks => fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null
-    );
+    // this.dataStorageService.fetchTasks().subscribe(
+    //   fetchedTasks => {
+    //     console.log(fetchedTasks);
+    //     fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null;
+    //   }
+    // );
+    this.authService.autoLogin();
     this.locationService.getPosition().then(pos => {
       this.weatherService.getWeather(pos.lng, pos.lat);
     });

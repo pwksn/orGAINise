@@ -1,8 +1,10 @@
+import { AuthService } from './../auth/auth.service';
 import { TasksService } from './../to-do/tasks.service';
 import { Task } from './../to-do/task.model';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { exhaustMap, take } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class DataStorageService {
@@ -23,8 +25,7 @@ export class DataStorageService {
     }
 
     public fetchTasks() {
-        // this.http.get<Task[]>('https://orgainise-webapp.firebaseio.com/allTasks.json')
-        //     .subscribe(tasks => console.log(tasks));
         return this.http.get<Task[]>('https://orgainise-webapp.firebaseio.com/allTasks.json');
+        // return this.http.get<Task[]>('https://orgainise-webapp.firebaseio.com/allTasks.json');
     }
 }

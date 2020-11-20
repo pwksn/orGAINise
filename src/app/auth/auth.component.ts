@@ -1,6 +1,11 @@
+import { TasksService } from './../to-do/tasks.service';
+import { DataStorageService } from './../shared/data-storage.service';
+import { Router } from '@angular/router';
+import { AuthService, AuthResponseData } from './auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from './helpers/must-match.validator';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -10,10 +15,17 @@ import { MustMatch } from './helpers/must-match.validator';
 export class AuthComponent implements OnInit {
 
   public isLoggingMode: boolean = true;
+  public isLoading: boolean = false;
+  public errorMsg: string = null;
+
   authForm: FormGroup
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private dataStorageService: DataStorageService,
+    private tasksService: TasksService
   ) { }
 
   get form() { return this.authForm.controls; }
@@ -36,16 +48,39 @@ export class AuthComponent implements OnInit {
   }
 
   onAuthSubmit() {
-    if (this.isLoggingMode) {
-      console.log(this.authForm.value['userName']);
-      console.log(this.authForm.value['userPassword']);
-    } else {
-      console.log(this.authForm.value['userName']);
-      console.log(this.authForm.value['userPassword']);
-      console.log(this.authForm.value['userPasswordRepeat']);
-      console.log(this.authForm.value['userNick']);
+    if (!this.authForm.valid) {
+      return;
     }
-    console.log(this.form);
+    const email = this.authForm.value['userName'];
+    const password = this.authForm.value['userPassword'];
+
+    let authObs: Observable<AuthResponseData>;
+
+    this.isLoading = true;
+    if (this.isLoggingMode) {
+      authObs = this.authService.logIn(email, password);
+    } else {
+      authObs = this.authService.signUp(email, password);
+    }
+
+    authObs.subscribe(resData => {
+      console.log(resData);
+      // this.isLoading = false;
+      this.dataStorageService.fetchTasks().subscribe(
+        fetchedTasks => {
+          console.log(fetchedTasks);
+          this.isLoading = false;
+          fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null;
+          this.router.navigate(['/todo/today']);
+        }
+      );
+    }, errorMsg => {
+      console.log(errorMsg);
+      this.errorMsg = errorMsg;
+      this.isLoading = false;
+    });
+
+    this.authForm.reset();
   }
 
   private initForm() {
@@ -73,12 +108,12 @@ export class AuthComponent implements OnInit {
 
     if (this.isLoggingMode) {
       this.authForm = this.formBuilder.group({
-        userName: ['', Validators.required],
+        userName: ['', [Validators.required, Validators.email]],
         userPassword: ['', [Validators.required, Validators.minLength(6)]]
       })
     } else {
       this.authForm = this.formBuilder.group({
-        userName: ['', Validators.required],
+        userName: ['', [Validators.required, Validators.email]],
         userPassword: ['', [Validators.required, Validators.minLength(6)]],
         userPasswordRepeat: ['', [Validators.required, Validators.minLength(6)]],
         userNick: ['', Validators.required]
@@ -88,6 +123,5 @@ export class AuthComponent implements OnInit {
       })
     }
   }
-
 
 }
