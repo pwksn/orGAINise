@@ -2,7 +2,7 @@
     <div class="auth-form">
 
         <div *ngIf="isLoading" class="form-box d-flex flex-column align-items-center justify-content-center">
-            <h3>Czekaj...</h3>
+            <h3>Ładowanie...</h3>
         </div>
 
         <form [formGroup]="authForm" (ngSubmit)="onAuthSubmit()" *ngIf="!isLoading">
@@ -14,11 +14,11 @@
                     <div *ngIf="!isLoggingMode" class="d-flex flex-column justify-content-center align-items-center mb-0 auth-form-mid-box">
                         <div class="form-group d-flex flex-column justify-content-center align-items-center">
                             <input
-                            type="email" 
-                            class="form-control mb-3 mt-5" 
-                            id="userName" 
-                            formControlName="userName" 
-                            placeholder="E-mail" 
+                            type="email"
+                            class="form-control mb-3 mt-5"
+                            id="userName"
+                            formControlName="userName"
+                            placeholder="E-mail"
                             name="userName">
                             <div *ngIf="userName.errors?.required && (userName.touched)">
                                 <h5 class="text-danger">E-mail jest wymagany.</h5>
@@ -26,10 +26,10 @@
                         </div>
                         <div class="form-group d-flex flex-column justify-content-center align-items-center">
                             <input
-                            type="password" 
-                            class="form-control mt-3 mb-3" 
-                            id="userPassword" 
-                            autocomplete="off" 
+                            type="password"
+                            class="form-control mt-3 mb-3"
+                            id="userPassword"
+                            autocomplete="off"
                             formControlName="userPassword"
                             placeholder="Hasło (min. 6 znaków)">
                             <div *ngIf="userPassword.errors?.required && (userPassword.touched)">
@@ -40,9 +40,9 @@
                             </div>
                         </div>
                         <div class="form-group d-flex flex-column justify-content-center align-items-center">
-                            <input 
-                            type="password" 
-                            class="form-control mt-3 mb-3" 
+                            <input
+                            type="password"
+                            class="form-control mt-3 mb-3"
                             id="userPasswordRepeat"
                             autocomplete="off"
                             formControlName="userPasswordRepeat"
@@ -53,36 +53,36 @@
                             <div *ngIf="userPasswordRepeat.errors?.mustMatch && (userPasswordRepeat.touched)">
                                 <h5 class="text-danger">Hasła nie zgadzają się.</h5>
                             </div>
-                        </div>                            
+                        </div>
                         <div class="form-group d-flex flex-column justify-content-center align-items-center mb-5">
                             <input
-                            type="text" 
-                            class="form-control mt-3 mb-3" 
-                            id="userNick" 
-                            autocomplete="off" 
-                            formControlName="userNick" 
-                            placeholder="Twoje imię lub pseudonim">     
+                            type="text"
+                            class="form-control mt-3 mb-3"
+                            id="userNick"
+                            autocomplete="off"
+                            formControlName="userNick"
+                            placeholder="Twoje imię lub pseudonim">
                             <div *ngIf="userNick.errors?.required && (userNick.touched)">
                                 <h5 class="text-danger">To pole jest wymagane.</h5>
-                            </div> 
-                        </div>             
+                            </div>
+                        </div>
                     </div>
-    
+
                     <div *ngIf="isLoggingMode" class="d-flex flex-column justify-content-center align-items-center mb-0 auth-form-mid-box">
                         <input
                             type="email"
-                            class="form-control mb-3 mt-5" 
-                            id="userName" 
-                            autocomplete="off" 
-                            formControlName="userName" 
+                            class="form-control mb-3 mt-5"
+                            id="userName"
+                            autocomplete="off"
+                            formControlName="userName"
                             placeholder="E-mail">
-    
+
                         <input
-                            type="password" 
-                            class="form-control mt-3 mb-5" 
-                            id="userPassword" 
-                            autocomplete="off" 
-                            formControlName="userPassword" 
+                            type="password"
+                            class="form-control mt-3 mb-5"
+                            id="userPassword"
+                            autocomplete="off"
+                            formControlName="userPassword"
                             placeholder="Hasło">
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                     <button class="btn btn-success" type="submit" [disabled]="!authForm.valid">{{isLoggingMode ? 'Zaloguj się' : 'Zarejestruj się'}}</button>
                 </div>
             </div>
-            
+
         </form>
     </div>
 </div>

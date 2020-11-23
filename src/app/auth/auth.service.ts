@@ -39,7 +39,7 @@ export class AuthService {
       }
     )
     .pipe(
-      catchError(this.handleError), 
+      catchError(this.handleError),
       tap(resData => {
         this.handleAuth(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
       })
@@ -71,7 +71,7 @@ export class AuthService {
     } = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
       return;
-    } 
+    }
 
     const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
 

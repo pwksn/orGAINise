@@ -70,13 +70,12 @@ svg {
 
 #sidebar ul.components {
     padding: 20px 0;
-    cursor: pointer;
 }
 
 #sidebar ul li a {
     padding: 20px;
     display: block;
-
+    cursor: pointer;
     transition: background-color .1s ease-in;
 }
 

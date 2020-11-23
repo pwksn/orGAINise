@@ -1,6 +1,7 @@
+import { WeatherService } from './../../weather/weather.service';
 import { DateService } from './../../shared/date.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 
 @Component({
   selector: 'app-info-bar',
@@ -17,18 +18,21 @@ export class InfoBarComponent implements OnInit {
   public tomorrowDay: number;
   public tomorrowMonth: string;
   public tomorrowYear: number;
+  public isWeatherData: boolean;
 
   constructor(
     private dateService: DateService,
     private router: Router,
+    private weatherService: WeatherService
   ) { }
 
   ngOnInit(): void {
     this.onDaySelected(this.daySelected);
+    this.isWeatherData = this.checkWeatherData();
   }
 
   onTaskAdd() {
-    this.router.navigate(['/todo/new'], 
+    this.router.navigate(['/todo/new'],
     {queryParams: {
       day: this.daySelected
     }});
@@ -52,6 +56,10 @@ export class InfoBarComponent implements OnInit {
     } else {
       this.dayText = 'Na później'
     }
+  }
+
+  checkWeatherData() {
+    return this.weatherService.currentWeatherData.locationName ? true : false;
   }
 
 }

@@ -1,12 +1,14 @@
+import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/auth', pathMatch: 'full'},
-    { 
+    {
         path: 'todo',
-        loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)
-    }, 
+        loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule),
+        canActivate: [AuthGuard]
+    },
     {
         path: 'weather',
         loadChildren: () => import('./weather/weather.module').then(m => m.WeatherModule)
@@ -29,12 +31,12 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes, 
+    imports: [RouterModule.forRoot(appRoutes,
         { preloadingStrategy: PreloadAllModules }
     )],
     exports: [RouterModule]
 })
 
 export class AppRoutingModule {
-    
+
 }

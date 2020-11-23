@@ -66,12 +66,14 @@ export class AuthComponent implements OnInit {
     authObs.subscribe(resData => {
       console.log(resData);
       // this.isLoading = false;
+      console.log(resData.idToken);
+      this.dataStorageService.localId = resData.localId
       this.dataStorageService.fetchTasks().subscribe(
         fetchedTasks => {
           console.log(fetchedTasks);
-          this.isLoading = false;
           fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null;
           this.router.navigate(['/todo/today']);
+          this.isLoading = false;
         }
       );
     }, errorMsg => {

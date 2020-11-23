@@ -11,7 +11,7 @@
             <p class="btn-text">+</p>
         </button>
         <app-weather-widget
-            *ngIf="(daySelected === 'today') || (daySelected === 'tomorrow')"
+            *ngIf="((daySelected === 'today') || (daySelected === 'tomorrow')) && isWeatherData"
             [daySelected]="daySelected"
             (click)="onWidgetClick()"
             class="ml-3">
