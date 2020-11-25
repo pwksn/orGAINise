@@ -30,6 +30,17 @@ p {
     font-weight: 400;
 }
 
+select, option {
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 100%;
+}
+
+.tasksSelect {
+    min-width: 40%;
+    text-align: center;
+}
+
 .bg-focus {
     background-color: #E74C3C;
 }

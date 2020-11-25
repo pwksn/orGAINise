@@ -1,3 +1,5 @@
+import { Task } from './../../to-do/task.model';
+import { TasksService } from './../../to-do/tasks.service';
 import { SoundEffectService } from './../../shared/sound-effects.service';
 import { Injectable } from '@angular/core';
 import { interval, Subject, Subscription } from 'rxjs';
@@ -8,7 +10,8 @@ import { interval, Subject, Subscription } from 'rxjs';
 export class TimerService {
 
   constructor(
-    private soundEffectService: SoundEffectService
+    private soundEffectService: SoundEffectService,
+    private tasksService: TasksService
   ) { }
 
   isRunning: boolean = false;
@@ -19,6 +22,7 @@ export class TimerService {
   startingMinutes: number = this.value[0];
   startingSeconds: number = this.value[1];
   currentMode: string = 'focus';
+  private currentTask: Task;
 
   private _modeChanged: Subject<any> = new Subject<any>();
   public modeChangedObs = this._modeChanged.asObservable();
@@ -107,10 +111,18 @@ export class TimerService {
       this.currentMode = 'focus';
     } else if (this.currentMode === 'focus' && this.cyclesDone !== 0 && this.cyclesDone % 3 === 0) {
       this.cyclesDone++;
+      this.currentTask.taskCyclesDone++;
       this.currentMode = 'long';
     } else {
       this.cyclesDone++;
+      this.currentTask.taskCyclesDone++;
       this.currentMode = 'short';
     }
+    console.log(this.currentTask);
+    this.tasksService.storeAllTasks();
+  }
+
+  public setCurrentTask(task: Task) {
+    this.currentTask = task;
   }
 }

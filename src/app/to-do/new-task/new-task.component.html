@@ -29,6 +29,16 @@
                 <label for="taskDetails" class="input-label">Opis zadania</label>
                 <textarea class="form-control" id="taskDetails" rows="3" formControlName="details"></textarea>
             </div>
+            <div class="form-group mb-5">
+                <label for="taskCycles" class="input-label">Cykle Pomodoro</label>
+                <div class="d-flex align-items-center">
+                    <button type="button" (click)="changeTaskCycle('decrease')" class="btn btn-primary btn-cycles">-</button>
+                    <h2>{{taskTimeCycles}}</h2>
+                    <button type="button" (click)="changeTaskCycle('increase')" class="btn btn-primary btn-cycles">+</button>
+                    <h3 *ngIf="taskTime[0] !== 0 || taskTime[1] !== 0">({{taskTime[0]}}h {{taskTime[1]}}min)</h3>
+                    <h3 *ngIf="taskTime[0] === 0 && taskTime[1] === 0">(czas nieokreślony)</h3>
+                </div>
+            </div>
             <div class="form-group">
                 <label for="taskPartners" class="input-label">Współwykonawca</label>
                 <div class="form-row form-row-flex">

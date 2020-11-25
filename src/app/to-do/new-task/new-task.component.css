@@ -2,6 +2,20 @@ h1, h2, h3, h4, p {
     color: #000;
 }
 
+h2 {
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 0 2rem;
+    min-width: 4rem;
+    text-align: center;
+}
+
+h3 {
+    font-size: 3rem;
+    font-weight: 400;
+    margin: 0 2rem;
+}
+
 hr {
     width: 100%;
 }
@@ -37,6 +51,12 @@ input.ng-invalid.ng-dirty {
     font-size: 2rem;
     font-weight: 500;
     margin: 0;
+}
+
+.btn-cycles {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
 }
 
 .new-task-box {

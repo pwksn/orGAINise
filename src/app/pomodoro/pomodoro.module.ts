@@ -7,7 +7,7 @@ import { TimerComponent } from './timer/timer.component';
 @NgModule({
   declarations: [
     TimerComponent,
-    PomodoroComponent
+    PomodoroComponent,
   ],
   imports: [
     CommonModule,

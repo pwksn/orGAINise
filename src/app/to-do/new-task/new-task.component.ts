@@ -21,6 +21,9 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
   private daySelected: string;
   private task: Task;
   private taskId: number;
+  public taskTimeCycles: number = 1;
+  public taskTime: number[] = [0, 25];
+  private taskCyclesDone: number;
 
   constructor(
     private _location: Location,
@@ -37,7 +40,9 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     this.daySelected = this.dataStorageService.getQueryParam('day');
     this.getParams();
     this.initForm();
-    console.log(this.isEditMode);
+    if (this.isEditMode && this.taskTimeCycles) {
+      this.taskTime = this.tasksService.calculateTaskTime(this.taskTimeCycles);
+    };
   }
 
   ngAfterViewInit(): void {
@@ -51,7 +56,9 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       taskDetails: this.taskForm.value['details'],
       partnerName: this.taskForm.value['partner'],
       partnerNumber: this.taskForm.value['phone'],
-      partnerMail: this.taskForm.value['mail']
+      partnerMail: this.taskForm.value['mail'],
+      taskCycles: this.taskTimeCycles,
+      taskCyclesDone: this.taskCyclesDone
     }
     
     if (this.isEditMode) {
@@ -74,13 +81,11 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
 
   private changeTask(task: Task) {
     if (this.daySelected !== task.taskDay) {
-      // this.tasksService.removeTask(this.taskId, this.daySelected); //toDo
       this.tasksService.removeEditedTask(this.taskId,this.daySelected);
       this.tasksService.addTask(task);
     } else {
       this.tasksService.updateTask(this.taskId, this.task, this.task.taskDay);
     }
-    // this.tasksService.storeAllTasks();
   }
 
   private getParams() {
@@ -112,6 +117,8 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       partnerName = task.partnerName;
       partnerNumber = task.partnerNumber;
       partnerMail = task.partnerMail;
+      this.taskTimeCycles = task.taskCycles;
+      this.taskCyclesDone = task.taskCyclesDone;
     }
 
     this.taskForm = new FormGroup({
@@ -122,5 +129,14 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       'phone': new FormControl(partnerNumber),
       'mail': new FormControl(partnerMail)
     })
+  }
+
+  public changeTaskCycle(operation: string) {
+    if (operation === 'increase' && this.taskTimeCycles < 99) {
+      this.taskTimeCycles++;
+    } else if(this.taskTimeCycles > 0){
+      this.taskTimeCycles--;
+    }
+    this.taskTime = this.tasksService.calculateTaskTime(this.taskTimeCycles);
   }
 }

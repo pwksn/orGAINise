@@ -28,6 +28,5 @@ export class DataStorageService {
     public fetchTasks() {
         console.log(`https://orgainise-webapp.firebaseio.com/${this.localId}.json`);
         return this.http.get<Task[]>(`https://orgainise-webapp.firebaseio.com/${this.localId}.json`);
-        // return this.http.get<Task[]>('https://orgainise-webapp.firebaseio.com/allTasks.json');
     }
 }

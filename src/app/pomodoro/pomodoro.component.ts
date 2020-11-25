@@ -1,3 +1,4 @@
+import { Task } from './../to-do/task.model';
 import { TasksService } from './../to-do/tasks.service';
 import { Subscription } from 'rxjs';
 import { TimerService } from './timer/timer.service';
@@ -14,9 +15,12 @@ export class PomodoroComponent implements OnInit, OnDestroy {
 
   mode: string = 'focus';
   message: string;
-  pomodoroCount = 0;
+  public pomodoroCount = 0;
   private nextModeSub: Subscription;
   public todayTasksCount: number;
+  public todayTasksList: Task[];
+  public taskCyclesDone: number;
+  private currentTask: Task;
 
   constructor(
     private modalService: NgbModal,
@@ -28,13 +32,20 @@ export class PomodoroComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.mode = this.timerService.getCurrentMode();
     this.pomodoroCount = this.timerService.getCyclesDone();
+    this.todayTasksList = this.tasksService.getTodayTasks();
     this.todayTasksCount = this.tasksService.getTodayTasks().length;
+    if (!this.currentTask) {
+      this.currentTask = this.todayTasksList[0];
+      this.timerService.setCurrentTask(this.currentTask);
+    }
     console.log(this.todayTasksCount);
     this.onModeChange();
   }
 
   ngOnDestroy() {
-    this.nextModeSub.unsubscribe();
+    if (this.nextModeSub) {
+      this.nextModeSub.unsubscribe();
+    }
   }
 
   onModeChange() {
@@ -105,6 +116,18 @@ export class PomodoroComponent implements OnInit, OnDestroy {
     } else {
       this.mode = 'short';
     }
+  }
+
+  public setNewTask(name: string) {
+    for (let task of this.todayTasksList) {
+      if (task.taskName === name) {
+        this.currentTask = task;
+      }
+    }
+    if (!this.currentTask.taskCyclesDone) {
+      this.currentTask.taskCyclesDone = 0;
+    }
+    this.timerService.setCurrentTask(this.currentTask);
   }
 
 }

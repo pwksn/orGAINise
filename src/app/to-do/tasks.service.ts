@@ -154,5 +154,12 @@ export class TasksService {
     this.laterTasks = [];
   }
 
+  public calculateTaskTime(taskCycles: number) {
+    const taskDuration = taskCycles * 25;
+    const taskHours = Math.floor(taskDuration / 60);
+    const taskMinutes = taskDuration % 60;
+    return [taskHours, taskMinutes];
+  }
+
 
 }
