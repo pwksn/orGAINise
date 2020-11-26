@@ -2,8 +2,14 @@ import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
+let defaultRoute: string = '/auth';
+
+if (localStorage.getItem('userData')) {
+    defaultRoute = '/todo/today'
+};
+
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/auth', pathMatch: 'full'},
+    { path: '', redirectTo: defaultRoute, pathMatch: 'full'},
     {
         path: 'todo',
         loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule),

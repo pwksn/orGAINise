@@ -22,12 +22,12 @@ export class DataStorageService {
     }
 
     public storeTasks(tasks: Task[]) {
-        return this.http.put(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}.json`, tasks)
+        return this.http.put(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}/tasks.json`, tasks)
             .subscribe(response => console.log(response));
     }
 
     public fetchTasks() {
-        return this.http.get<Task[]>(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}.json`);
+        return this.http.get<Task[]>(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}/tasks.json`);
     }
 
     public storeAirCondition(airCondition: AirConditionData) {
@@ -37,5 +37,14 @@ export class DataStorageService {
 
     public fetchAirCondition() {
         return this.http.get<AirConditionData>(`https://orgainise-webapp.firebaseio.com/apiCalls/lastAirCondition.json`);
+    }
+
+    public storeTotalTasks(totalTasksNumber: number) {
+        return this.http.put(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}/totalTasks.json`, totalTasksNumber)
+            .subscribe(response => console.log(response));
+    }
+
+    public fetchTotalTasks() {
+        return this.http.get<number>(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}/totalTasks.json`);
     }
 }

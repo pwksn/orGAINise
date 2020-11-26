@@ -31,14 +31,18 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.autoLogin();
-    this.locationService.getPosition().then(pos => {
-      this.weatherService.getWeather(pos.lng, pos.lat);
-    });
+    // this.locationService.getPosition().then(pos => {
+    //   this.weatherService.getWeather(pos.lng, pos.lat);
+    // });
     this.userSub = this.authService.user.subscribe(user => {
       this.isLoggedIn = !user ? false : true;
+      this.dataStorageService.localId = user?.id;
     });
+    if (this.isLoggedIn) {
+      this.locationService.getPosition().then(pos => {
+        this.weatherService.getWeather(pos.lng, pos.lat);
+      });
+    }
     this.dataStorageService.fetchTasks();
-
-    // this.tasksService.sortTasksByDay(this.tasks);
   }
 }

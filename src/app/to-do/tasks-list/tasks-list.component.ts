@@ -1,3 +1,4 @@
+import { DataStorageService } from './../../shared/data-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Task } from './../task.model';
@@ -13,11 +14,13 @@ export class TasksListComponent implements OnInit {
   @Input() daySelected: string;
   public tasks: Task[];
   private subscription: Subscription;
+  private totalTasksDone: number;
 
   constructor(
     private tasksService: TasksService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataStorageService: DataStorageService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +39,15 @@ export class TasksListComponent implements OnInit {
       } else {
         this.tasks = this.tasksService.getLaterTasks();
       }
+    this.dataStorageService.fetchTotalTasks().subscribe(
+      response => {
+        if (response >= 0) {
+          this.totalTasksDone = response;
+        } else {
+          this.totalTasksDone = 0;
+        }
+      }
+    )
   }
 
   onDaySelected(day: string) {
@@ -49,6 +61,12 @@ export class TasksListComponent implements OnInit {
   }
 
   onDeleteTask(index: number) {
+    this.tasksService.removeTask(index, this.daySelected);
+  }
+
+  onTaskDone(index: number) {
+    this.totalTasksDone++;
+    this.dataStorageService.storeTotalTasks(this.totalTasksDone);
     this.tasksService.removeTask(index, this.daySelected);
   }
 
