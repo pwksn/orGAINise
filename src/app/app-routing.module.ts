@@ -11,11 +11,13 @@ const appRoutes: Routes = [
     },
     {
         path: 'weather',
-        loadChildren: () => import('./weather/weather.module').then(m => m.WeatherModule)
+        loadChildren: () => import('./weather/weather.module').then(m => m.WeatherModule),
+        canActivate: [AuthGuard]
     },
     {
         path: 'pomodoro',
-        loadChildren: () => import('./pomodoro/pomodoro.module').then(m => m.PomodoroModule)
+        loadChildren: () => import('./pomodoro/pomodoro.module').then(m => m.PomodoroModule),
+        canActivate: [AuthGuard]
     },
     {
         path: 'auth',

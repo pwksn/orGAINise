@@ -18,14 +18,6 @@ export class TasksService {
   private todayDate = this.dateService.today;
   private tomorrowDate = this.dateService.tomorrow;
 
-  // mock tasks
-  // public mockTasks: Task[] = [
-  //   {taskName: 'Today task test', taskDate: 1605135600000, taskDetails: 'test opis'},
-  //   {taskName: 'Yesterday task test', taskDate: 1605135600000, taskDetails: 'test opis 111'},
-  //   {taskName: 'Tomorrow task test', taskDate: 1605222000000, taskDetails: 'test opis 123'},
-  //   {taskName: 'Later task test', taskDate: 1607222000000, taskDetails: 'test opis 123'},
-  // ]
-
   constructor(
     private dateService: DateService,
     private dataStorageService: DataStorageService

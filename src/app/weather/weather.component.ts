@@ -1,3 +1,4 @@
+import { DataStorageService } from './../shared/data-storage.service';
 import { DateService } from './../shared/date.service';
 import { Component, OnInit } from '@angular/core';
 import { NextDayWeather, WeatherDataFields, AirConditionData } from './weather-response.model';
@@ -20,7 +21,8 @@ export class WeatherComponent implements OnInit {
 
   constructor(
     private weatherService: WeatherService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private dataStorageService: DataStorageService
   ) { }
 
   ngOnInit() {
@@ -32,8 +34,6 @@ export class WeatherComponent implements OnInit {
     this.nextDayForecast = this.weatherService.getNextDayWeather();
     this.airConditions = this.weatherService.getAirConditions();
     this.indexCAQI = +this.airConditions.value;
-    console.log(this.airConditions);
-    // console.log(this.indexCAQI);
     this.checkWeatherFetched();
     this.checkAirFetched();
   }
@@ -53,8 +53,15 @@ export class WeatherComponent implements OnInit {
   checkAirFetched() {
     if (this.airConditions.description.length) {
       this.isAirFetched = true;
+      this.dataStorageService.storeAirCondition(this.airConditions);
     } else {
       this.isAirFetched = false;
+      this.dataStorageService.fetchAirCondition().subscribe(
+        response => {
+          this.airConditions = response
+        }
+      );
     }
+    console.log(this.airConditions);
   }
 }

@@ -13,10 +13,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterContentChecked {
+export class AppComponent implements OnInit {
   title = 'orgApp2';
   userPosition = {};
-  currentRoute: string;
   tasks: Task[];
   isLoggedIn: boolean = false;
   private userSub: Subscription;
@@ -31,13 +30,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
   ) {}
 
   ngOnInit() {
-    // this.tasks = this.tasksService.mockTasks;
-    // this.dataStorageService.fetchTasks().subscribe(
-    //   fetchedTasks => {
-    //     console.log(fetchedTasks);
-    //     fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null;
-    //   }
-    // );
     this.authService.autoLogin();
     this.locationService.getPosition().then(pos => {
       this.weatherService.getWeather(pos.lng, pos.lat);
@@ -45,11 +37,8 @@ export class AppComponent implements OnInit, AfterContentChecked {
     this.userSub = this.authService.user.subscribe(user => {
       this.isLoggedIn = !user ? false : true;
     });
+    this.dataStorageService.fetchTasks();
 
     // this.tasksService.sortTasksByDay(this.tasks);
-  }
-
-  ngAfterContentChecked() {
-    this.currentRoute = this.router.url;
   }
 }

@@ -1,3 +1,4 @@
+import { AirConditionData } from './../weather/weather-response.model';
 import { AuthService } from './../auth/auth.service';
 import { TasksService } from './../to-do/tasks.service';
 import { Task } from './../to-do/task.model';
@@ -21,12 +22,20 @@ export class DataStorageService {
     }
 
     public storeTasks(tasks: Task[]) {
-        return this.http.put(`https://orgainise-webapp.firebaseio.com/${this.localId}.json`, tasks)
+        return this.http.put(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}.json`, tasks)
             .subscribe(response => console.log(response));
     }
 
     public fetchTasks() {
-        console.log(`https://orgainise-webapp.firebaseio.com/${this.localId}.json`);
-        return this.http.get<Task[]>(`https://orgainise-webapp.firebaseio.com/${this.localId}.json`);
+        return this.http.get<Task[]>(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}.json`);
+    }
+
+    public storeAirCondition(airCondition: AirConditionData) {
+        return this.http.put(`https://orgainise-webapp.firebaseio.com/apiCalls/lastAirCondition.json`, airCondition)
+        .subscribe(response => console.log(response));
+    }
+
+    public fetchAirCondition() {
+        return this.http.get<AirConditionData>(`https://orgainise-webapp.firebaseio.com/apiCalls/lastAirCondition.json`);
     }
 }

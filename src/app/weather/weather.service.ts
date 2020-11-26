@@ -1,3 +1,4 @@
+import { DataStorageService } from './../shared/data-storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocationService } from '../shared/location.service';
@@ -31,6 +32,7 @@ export class WeatherService {
     public currentAirCondition: AirConditionData = {
         description: '',
         value: '',
+        dateTime: ''
     }
     
     getWeather(longitude: number, latitude: number) {
@@ -63,13 +65,15 @@ export class WeatherService {
     }
 
     getAirCondition(longitude: number, latitude: number) {
-        this.http.get<any>('https://airapi.airly.eu/v2/measurements/point?lat='+ latitude +'&lng='+ longitude +'&apikey=Oeam5hSEwezqPTEj1ElYB4i1uOh9ZD5b').subscribe(
+        this.http.get<AirConditionResponse>('https://airapi.airly.eu/v2/measurements/point?lat='+ latitude +'&lng='+ longitude +'&apikey=Oeam5hSEwezqPTEj1ElYB4i1uOh9ZD5b').subscribe(
             response => {
+                console.log(response);
                 this.currentAirCondition.description = response.current.indexes[0].description;
                 this.currentAirCondition.value = response.current.indexes[0].value;
+                this.currentAirCondition.dateTime = response.current.tillDateTime;
                 console.log(this.currentAirCondition);
             }
-        )
+        );
     }
 
     getCurrentWeather() {

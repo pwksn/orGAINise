@@ -52,15 +52,18 @@ export class AirConditionResponse {
         indexes: [{
             color: string,
             description: string,
+            value: string,
         }],
         values: [{
             name: string,
             value: string
-        }]
+        }],
+        tillDateTime: string
     }
 }
 
 export class AirConditionData {
     description?: string;
     value?: string;
+    dateTime?: string;
 }
