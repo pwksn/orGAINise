@@ -1,8 +1,10 @@
+import { AuthService } from './../../auth/auth.service';
+import { DateService } from './../../shared/date.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TasksService } from './../tasks.service';
 import { Task } from './../task.model';
 import { DataStorageService } from './../../shared/data-storage.service';
-import { Location } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -16,18 +18,20 @@ export class TaskDetailsComponent implements OnInit {
   private tasksList: Task[];
   public task: Task;
   private taskIndex: number;
+  private currentUserMail: string;
 
   constructor(
     private _location: Location,
     private dataStorageService: DataStorageService,
     private tasksService: TasksService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dateService: DateService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.daySelected = this.dataStorageService.getQueryParam('day');
-    // this.taskIndex = +this.dataStorageService.getQueryParam('i');
     this.getTaskId(); // get index from route param insted
     this.setTask(this.daySelected);
     console.log(this.taskIndex);
@@ -66,6 +70,22 @@ export class TaskDetailsComponent implements OnInit {
     }
     this.task = this.tasksList[this.taskIndex];
     console.log(this.task);
+  }
+
+  onPhoneCall() {
+    window.location.href =`tel:${this.task.partnerNumber}`;
+  }
+  
+  onSendMail() {
+    console.log(this.task);
+    let taskUniqueId: number = this.dateService.getTimeMs;
+    const taskToSend: Task = Object.assign({}, this.task);
+    taskToSend.partnerMail = this.tasksService.currentUserMail;
+    taskToSend.partnerNumber = null;
+    this.dataStorageService.storeInvitation(this.task.partnerMail, taskToSend, taskUniqueId);
+    this.task.isInvited = true;
+    console.log(taskToSend);
+    this.tasksService.storeAllTasks();
   }
 
 }

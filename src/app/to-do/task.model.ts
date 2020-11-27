@@ -9,4 +9,6 @@ export class Task {
     isTerminated?: boolean;
     taskCycles?: number;
     taskCyclesDone?: number;
+    isInvited?: boolean;
+    isInvitational?: boolean;
 }

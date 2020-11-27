@@ -10,6 +10,12 @@ hr {
     width: 100%;
 }
 
+button {
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 8rem;
+}
+
 .button-back {
     width: 4rem;
     height: 4rem;

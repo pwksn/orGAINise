@@ -17,6 +17,7 @@ export class TasksService {
   public tasksChanged = new Subject<Task[]>();
   private todayDate = this.dateService.today;
   private tomorrowDate = this.dateService.tomorrow;
+  private _currentUserMail: string;
 
   constructor(
     private dateService: DateService,
@@ -151,6 +152,14 @@ export class TasksService {
     const taskHours = Math.floor(taskDuration / 60);
     const taskMinutes = taskDuration % 60;
     return [taskHours, taskMinutes];
+  }
+
+  set currentUserMail(mail: string) {
+    this._currentUserMail = mail;
+  }
+
+  get currentUserMail() {
+    return this._currentUserMail;
   }
 
 
