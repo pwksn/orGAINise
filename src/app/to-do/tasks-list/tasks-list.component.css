@@ -24,6 +24,10 @@ button {
 }
 
 .terminated {
-    color: red;
+    color: #E74C3C;
     font-weight: 500;
+}
+
+.invitational {
+  color: #18BC9C;
 }

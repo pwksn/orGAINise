@@ -19,7 +19,8 @@ export class AuthComponent implements OnInit {
   public isLoggingMode: boolean = true;
   public isLoading: boolean = false;
   public errorMsg: string = null;
-  private invitationalTasks: Task[];
+  private invitationalTasks: Task[] = [];
+  private taskCombined: Task[] = [];
 
   authForm: FormGroup
 
@@ -73,24 +74,39 @@ export class AuthComponent implements OnInit {
       this.dataStorageService.localId = resData.localId;
       this.tasksService.currentUserMail = resData.email;
       this.dataStorageService.fetchInvitations(resData.email).subscribe(
-        // fetchedInvitations => {
-        //   for (let [uid, task] of Object.entries(fetchedInvitations)) {
-        //     console.log(task);
-        //     task.isInvitational = true;
-        //     this.invitationalTasks.push(task);
-        //   }
-        //   console.log(this.invitationalTasks);
-        // }
-      );
-      this.dataStorageService.fetchTasks().subscribe(
-        fetchedTasks => {
-          console.log(fetchedTasks);
-          // fetchedTasks.concat(this.invitationalTasks);
-          fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null;
-          this.router.navigate(['/todo/today']);
-          this.isLoading = false;
+        fetchedInvitations => {
+          if (!!fetchedInvitations) {
+            for (let [uid, task] of Object.entries(fetchedInvitations)) {
+              console.log(task);
+              task.isInvitational = true;
+              this.invitationalTasks.push(task);
+            }
+          }
+          console.log(this.invitationalTasks);
+          this.dataStorageService.fetchTasks().subscribe(
+            fetchedTasks => {
+              console.log(fetchedTasks);
+              if(!fetchedTasks) {
+                this.taskCombined = this.invitationalTasks;
+              } else {
+                this.taskCombined = fetchedTasks.concat(this.invitationalTasks);
+              }
+              this.taskCombined ? this.tasksService.sortTasksByDay(this.taskCombined) : null;
+              this.router.navigate(['/todo/today']);
+              this.isLoading = false;
+            }
+          );
         }
       );
+      // this.dataStorageService.fetchTasks().subscribe(
+      //   fetchedTasks => {
+      //     console.log(fetchedTasks);
+      //     fetchedTasks.concat(this.invitationalTasks);
+      //     fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null;
+      //     this.router.navigate(['/todo/today']);
+      //     this.isLoading = false;
+      //   }
+      // );
     }, errorMsg => {
       console.log(errorMsg);
       this.errorMsg = errorMsg;

@@ -75,13 +75,15 @@ export class TaskDetailsComponent implements OnInit {
   onPhoneCall() {
     window.location.href =`tel:${this.task.partnerNumber}`;
   }
-  
+
   onSendMail() {
     console.log(this.task);
     let taskUniqueId: number = this.dateService.getTimeMs;
     const taskToSend: Task = Object.assign({}, this.task);
     taskToSend.partnerMail = this.tasksService.currentUserMail;
     taskToSend.partnerNumber = null;
+    taskToSend.partnerName = null;
+    taskToSend.taskUniqueId = taskUniqueId;
     this.dataStorageService.storeInvitation(this.task.partnerMail, taskToSend, taskUniqueId);
     this.task.isInvited = true;
     console.log(taskToSend);

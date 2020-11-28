@@ -1,9 +1,13 @@
 <div class="tasks-list-box mt-3 pb-3">
     <ul class="list-group list-group-flush">
-        <li 
+        <li
             class="list-group-item d-flex flex-row justify-content-between align-items-center"
             *ngFor="let task of tasks; let i = index">
-            <h2 [class.terminated]="task.isTerminated">{{task.taskName}}</h2>
+            <h2
+              [class.terminated]="task.isTerminated"
+              [class.invitational]="task.isInvitational">
+              {{task.taskName}}
+            </h2>
             <div>
                 <button class="btn btn-success mr-3" type="button" (click)="onTaskDone(i)">
                     <p class="btn-text d-flex align-items-center justify-content-center mb-0">

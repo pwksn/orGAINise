@@ -60,14 +60,13 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       taskCycles: this.taskTimeCycles,
       taskCyclesDone: this.taskCyclesDone
     }
-    
+
     if (this.isEditMode) {
       this.changeTask(this.task);
-      this.tasksService.storeAllTasks();
     } else {
       this.tasksService.addTask(this.task);
-      this.tasksService.storeAllTasks();
     }
+    this.tasksService.storeAllTasks();
     this.onGoToTaskList();
   }
 
@@ -102,7 +101,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
 
   private initForm() {
     let taskName = '';
-    let taskDay = 'today'; // default value 
+    let taskDay = 'today'; // default value
     let taskDetails = '';
     let partnerName = '';
     let partnerNumber = '';

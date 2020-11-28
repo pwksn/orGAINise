@@ -1,4 +1,4 @@
-export class Task { 
+export class Task {
     taskName?: string;
     taskDate?: number;
     taskDay?: string;
@@ -11,4 +11,5 @@ export class Task {
     taskCyclesDone?: number;
     isInvited?: boolean;
     isInvitational?: boolean;
+    taskUniqueId?: number;
 }

@@ -69,17 +69,26 @@ export class TasksService {
   }
 
   public removeTask(index: number, day: string) {
+    let taskToRemove: Task;
     if (day === 'today') {
+      taskToRemove = this.todayTasks[index];
       this.todayTasks.splice(index, 1);
       this.tasksChanged.next(this.todayTasks.slice());
     } else if (day === 'tomorrow') {
+      taskToRemove = this.tomorrowTasks[index];
       this.tomorrowTasks.splice(index, 1);
       this.tasksChanged.next(this.tomorrowTasks.slice());
     } else {
+      taskToRemove = this.laterTasks[index];
       this.laterTasks.splice(index, 1);
       this.tasksChanged.next(this.laterTasks.slice());
     }
-    this.storeAllTasks();
+    console.log(taskToRemove);
+    if (taskToRemove.isInvitational) {
+      this.dataStorageService.removeInvitation(taskToRemove);
+    } else {
+      this.storeAllTasks();
+    }
   }
 
   public removeEditedTask(index: number, day: string) {
@@ -132,8 +141,12 @@ export class TasksService {
 
   public storeAllTasks() {
     this.allTasks = this.todayTasks.concat(this.tomorrowTasks, this.laterTasks, this.terminatedTasks);
-    console.log(this.allTasks);
-    this.dataStorageService.storeTasks(this.allTasks);
+    const tasksToStore: Task[] = [];
+    for (let task of this.allTasks) {
+      if (!task.isInvitational) tasksToStore.push(task);
+    }
+    console.log(tasksToStore);
+    this.dataStorageService.storeTasks(tasksToStore);
   }
 
   public setTasks(tasks: Task[]) {

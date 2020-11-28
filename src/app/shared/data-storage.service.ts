@@ -52,7 +52,10 @@ export class DataStorageService {
         const formattedMail = receiverEmail.replace('.', '(dot)');
         return this.http.put(`https://orgainise-webapp.firebaseio.com/invitations/${formattedMail}/${uniqueId}.json`, task)
             .subscribe(response => {
-                response ? task.isInvited = true : null;
+                if (response ) {
+                  task.isInvited = true;
+                  task.taskUniqueId = uniqueId;
+                }
                 console.log(task);
             });
     }
@@ -60,5 +63,15 @@ export class DataStorageService {
     public fetchInvitations(receiverEmail: string) {
         const formattedMail = receiverEmail.replace('.', '(dot)');
         return this.http.get<Task[]>(`https://orgainise-webapp.firebaseio.com/invitations/${formattedMail}.json`);
+    }
+
+    public removeInvitation(task: Task) {
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      const userEmail = userData.email;
+      const formattedMail = userEmail.replace('.', '(dot)');
+      const uniqueId = task.taskUniqueId;
+      return this.http.delete(`https://orgainise-webapp.firebaseio.com/invitations/${formattedMail}/${uniqueId}.json`).subscribe(response => {
+        console.log(response);
+      })
     }
 }
