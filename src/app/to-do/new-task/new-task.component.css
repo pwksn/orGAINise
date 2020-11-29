@@ -71,6 +71,9 @@ input.ng-invalid.ng-dirty {
 
 .new-task-form {
     width: 80%;
+    height: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .form-control {

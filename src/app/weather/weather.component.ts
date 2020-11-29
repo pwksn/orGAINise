@@ -51,16 +51,16 @@ export class WeatherComponent implements OnInit {
   }
 
   checkAirFetched() {
-    if (this.airConditions.description.length) {
-      this.isAirFetched = true;
-      this.dataStorageService.storeAirCondition(this.airConditions);
-    } else {
+    if (!this.airConditions.value) {
       this.isAirFetched = false;
       this.dataStorageService.fetchAirCondition().subscribe(
         response => {
           this.airConditions = response
         }
       );
+    } else {
+      this.isAirFetched = true;
+      this.dataStorageService.storeAirCondition(this.airConditions);
     }
     console.log(this.airConditions);
   }

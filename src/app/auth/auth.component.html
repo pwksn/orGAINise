@@ -54,18 +54,6 @@
                                 <h5 class="text-danger">Hasła nie zgadzają się.</h5>
                             </div>
                         </div>
-                        <div class="form-group d-flex flex-column justify-content-center align-items-center mb-5">
-                            <input
-                            type="text"
-                            class="form-control mt-3 mb-3"
-                            id="userNick"
-                            autocomplete="off"
-                            formControlName="userNick"
-                            placeholder="Twoje imię lub pseudonim">
-                            <div *ngIf="userNick.errors?.required && (userNick.touched)">
-                                <h5 class="text-danger">To pole jest wymagane.</h5>
-                            </div>
-                        </div>
                     </div>
 
                     <div *ngIf="isLoggingMode" class="d-flex flex-column justify-content-center align-items-center mb-0 auth-form-mid-box">

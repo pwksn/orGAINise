@@ -34,7 +34,7 @@ export class WeatherService {
         value: '',
         dateTime: ''
     }
-    
+
     getWeather(longitude: number, latitude: number) {
         // Get current weather
         this.http.get<WeatherCurrentResponse>('https://api.openweathermap.org/data/2.5/weather?lat='+ latitude + '&lon=' + longitude + '&appid=bffb31e7ffc6eedf1f1311e3c8d3bf9f&lang=pl&units=metric').subscribe(response => {
@@ -49,7 +49,7 @@ export class WeatherService {
             console.log(this.currentWeatherData);
         });
 
-        // Get forecast for next days 
+        // Get forecast for next days
         this.http.get<WeatherForecastResponse>('https://api.openweathermap.org/data/2.5/onecall?lat='+ latitude +'&lon=' + longitude +'&exclude=hourly,minutely,current&appid=bffb31e7ffc6eedf1f1311e3c8d3bf9f&lang=pl&units=metric').subscribe(
             response => {
                 console.log(response.daily[1]);
@@ -59,7 +59,7 @@ export class WeatherService {
                 this.nextDayWeather.temp = response.daily[1].temp.day;
                 this.nextDayWeather.weatherIconName = response.daily[1].weather[0].icon;
                 console.log(this.nextDayWeather);
-                
+
             }
         )
     }
@@ -84,15 +84,15 @@ export class WeatherService {
         return this.nextDayWeather;
     }
 
-    public getAirConditions() { 
+    public getAirConditions() {
         return this.currentAirCondition;
     }
 
-    refreshWeather() {
+    public refreshWeather() {
         this.locationService.getPosition().then(pos => {
             this.getWeather(pos.lng, pos.lat);
             this.getAirCondition(pos.lng, pos.lat);
-        })   
+        })
         this.getCurrentWeather();
         this.getNextDayWeather();
     }

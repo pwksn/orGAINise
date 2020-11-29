@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { PomodoroRoutingModule } from './pomodoro-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +12,8 @@ import { TimerComponent } from './timer/timer.component';
   ],
   imports: [
     CommonModule,
-    PomodoroRoutingModule
+    PomodoroRoutingModule,
+    FormsModule
   ],
   exports: [
     TimerComponent

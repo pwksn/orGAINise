@@ -40,7 +40,7 @@ export class AuthComponent implements OnInit {
 
   get userPasswordRepeat() { return this.authForm.get('userPasswordRepeat')};
 
-  get userNick() { return this.authForm.get('userNick')};
+  // get userNick() { return this.authForm.get('userNick')};
 
   ngOnInit(): void {
     this.initForm();
@@ -149,7 +149,7 @@ export class AuthComponent implements OnInit {
         userName: ['', [Validators.required, Validators.email]],
         userPassword: ['', [Validators.required, Validators.minLength(6)]],
         userPasswordRepeat: ['', [Validators.required, Validators.minLength(6)]],
-        userNick: ['', Validators.required]
+        // userNick: ['', Validators.required]
       },
       {
         validators: MustMatch('userPassword', 'userPasswordRepeat')
