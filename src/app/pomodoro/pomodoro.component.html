@@ -15,7 +15,7 @@
     <div class="tasksSelect" [ngSwitch]="this.todayTasksCount">
         <p class="counter" *ngSwitchCase="0">Nie masz zaplanowanych zadań na dziś.</p>
         <p class="counter" *ngSwitchDefault>Nad czym teraz pracujesz?</p>
-        <select #selectElem (change)="setNewTask(selectElem.value)" class="form-control form-control-lg" *ngSwitchDefault>
+        <select #selectElem (change)="setNewTask(selectElem.value)" class="form-control form-control-lg" [ngModel]="currentTask.taskName" *ngSwitchDefault>
             <option *ngFor="let task of todayTasksList" [value]="task.taskName">
                 {{task.taskName}} ({{task.taskCyclesDone ? task.taskCyclesDone : 0}}/{{task.taskCycles}})
             </option>

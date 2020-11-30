@@ -87,11 +87,11 @@ export class AuthService {
     this.user.next(null);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
+    localStorage.removeItem('currentTaskName');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
-    console.log(this.tasksService.allTasks);
   }
 
   public autoLogout(expirationDuration: number) {

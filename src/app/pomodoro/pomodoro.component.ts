@@ -21,6 +21,7 @@ export class PomodoroComponent implements OnInit, OnDestroy {
   public todayTasksList: Task[];
   public taskCyclesDone: number;
   private currentTask: Task;
+  public currentTaskName: string;
 
   constructor(
     private modalService: NgbModal,
@@ -34,11 +35,8 @@ export class PomodoroComponent implements OnInit, OnDestroy {
     this.pomodoroCount = this.timerService.getCyclesDone();
     this.todayTasksList = this.tasksService.getTodayTasks();
     this.todayTasksCount = this.tasksService.getTodayTasks().length;
-    if (!this.currentTask) {
-      this.currentTask = this.todayTasksList[0];
-      this.timerService.setCurrentTask(this.currentTask);
-    }
-    console.log(this.todayTasksCount);
+    this.currentTaskName = JSON.parse(localStorage.getItem('currentTaskName'));
+    this.setNewTask(this.currentTaskName);
     this.onModeChange();
   }
 
@@ -124,10 +122,14 @@ export class PomodoroComponent implements OnInit, OnDestroy {
         this.currentTask = task;
       }
     }
+    if (!this.currentTask) {
+      this.currentTask = this.todayTasksList[0];
+    }
     if (!this.currentTask.taskCyclesDone) {
       this.currentTask.taskCyclesDone = 0;
     }
     this.timerService.setCurrentTask(this.currentTask);
+    localStorage.setItem('currentTaskName', JSON.stringify(this.currentTask.taskName));
   }
 
 }
