@@ -26,8 +26,51 @@
           <h4>Cykle Pomodoro</h4>
           <h2>{{ task.taskCycles }}</h2>
         </div>
-        <div class="d-flex flex-column align-items-start mt-5" *ngIf="task.partnerName">
-            <h4>Współwykonawca</h4>
+        <!-- <div *ngFor="let partner of task.partners">
+            {{partner.partnerName}}
+        </div>
+         -->
+        <div class="d-flex flex-column align-items-start mt-5 partners-box" *ngIf="taskPartnersLength">
+            <h4>Współwykonawcy</h4>
+            <div class="partners-list-box">
+                <div *ngFor="let partner of task.partners" class="d-flex align-items-center justify-content-start mb-3">
+                    <div class="d-flex align-items-center mr-5">
+                        <svg width="2rem" height="2rem" viewBox="0 0 16 16" class="bi bi-person-fill mr-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                        <h2>{{ partner.partnerName }}</h2>
+                        <span *ngIf="isItMe(partner.partnerMail)" class="ml-2"><h2 class="little-bolder"> (Ty)</h2></span>
+                    </div>
+                    <div class="d-flex align-items-center mr-5" *ngIf="partner.partnerNumber">
+                        <svg width="2rem" height="2rem" viewBox="0 0 16 16" class="bi bi-telephone-fill mr-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
+                        </svg>
+                        <h2>{{ partner.partnerNumber }}</h2>
+                        <!-- <button type="button" class="btn btn-primary ml-3 mr-5" (click)="onPhoneCall()">Zadzwoń</button> -->
+                    </div>
+                    <div class="d-flex align-items-center mr-5" *ngIf="partner.partnerMail">
+                        <svg width="2rem" height="2rem" viewBox="0 0 16 16" class="bi bi-envelope-fill mr-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                          </svg>
+                        <h2>{{ partner.partnerMail }}</h2>
+                        <!-- <button *ngIf="!task.isInvited && !task.isInvitational" type="button" class="btn btn-primary ml-3" (click)="onSendMail()">Wiadomość</button>
+                        <button *ngIf="task.isInvited && !task.isInvitational" type="button" class="btn btn-primary ml-3" (click)="onSendMail()" disabled>Wysłano</button> -->
+                    </div>
+                    <div class="ml-auto">
+                        <button *ngIf="partner.partnerNumber && !isItMe(partner.partnerMail) " type="button" class="btn btn-primary ml-3" (click)="onPhoneCall(partner)">Zadzwoń</button>
+                        <button *ngIf="!partner.isInvited && !task.isInvitational && partner.partnerMail && !isItMe(partner.partnerMail)" type="button" class="btn btn-primary ml-3" (click)="onSendMail(partner)">Zaproś</button>
+                        <button *ngIf="partner.isInvited && !task.isInvitational && partner.partnerMail && !isItMe(partner.partnerMail)" type="button" class="btn btn-primary ml-3" disabled>Wysłano</button>
+                    </div>
+    
+                </div>
+            </div>
+            
+            
+            
+        </div>
+
+        <!-- <div class="d-flex flex-column align-items-start mt-5" *ngIf="task.partnerName">
+            <h4>Współwykonawcy</h4>
             <div class="d-flex align-items-center">
                 <svg width="2rem" height="2rem" viewBox="0 0 16 16" class="bi bi-person-fill mr-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -46,13 +89,12 @@
                     <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
                   </svg>
                 <h2>{{ task.partnerMail }}</h2>
-                <!-- <button type="button" class="btn btn-primary ml-3" (click)="onSendMail()">Wyślij</button> -->
                 <button *ngIf="!task.isInvited && !task.isInvitational" type="button" class="btn btn-primary ml-3" (click)="onSendMail()">Wyślij</button>
                 <button *ngIf="task.isInvited && !task.isInvitational" type="button" class="btn btn-primary ml-3" (click)="onSendMail()" disabled>Wysłano</button>
             </div>
-        </div>
+        </div> -->
         <div class="d-flex flex-column align-items-start mt-5" *ngIf="task.isInvitational">
-            <h4>Autor zadania</h4>
+            <h4>Autor zadania (zapraszający)</h4>
             <h2>{{ task.partnerMail }}</h2>
         </div>
     </div>

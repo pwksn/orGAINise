@@ -1,7 +1,7 @@
 import { DataStorageService } from './../shared/data-storage.service';
 import { Subject } from 'rxjs';
 import { DateService } from './../shared/date.service';
-import { Task } from './task.model';
+import { Task, Partner } from './task.model';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -173,6 +173,13 @@ export class TasksService {
 
   get currentUserMail() {
     return this._currentUserMail;
+  }
+
+  public swapPartners(partners: Partner[], givenPartner: Partner) {
+    const index = partners.indexOf(givenPartner);
+    partners[index] = {
+      partnerMail: this.currentUserMail
+    }
   }
 
 

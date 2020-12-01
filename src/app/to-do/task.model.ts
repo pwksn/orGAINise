@@ -12,4 +12,12 @@ export class Task {
     isInvited?: boolean;
     isInvitational?: boolean;
     taskUniqueId?: number;
+    partners?: Partner[];
+}
+
+export class Partner {
+    partnerName?: string;
+    partnerNumber?: string;
+    partnerMail?: string;
+    isInvited?: boolean;
 }

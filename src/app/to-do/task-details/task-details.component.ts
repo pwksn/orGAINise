@@ -2,7 +2,7 @@ import { AuthService } from './../../auth/auth.service';
 import { DateService } from './../../shared/date.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TasksService } from './../tasks.service';
-import { Task } from './../task.model';
+import { Task, Partner } from './../task.model';
 import { DataStorageService } from './../../shared/data-storage.service';
 import { formatDate, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +18,8 @@ export class TaskDetailsComponent implements OnInit {
   private tasksList: Task[];
   public task: Task;
   private taskIndex: number;
-  private currentUserMail: string;
+  private currentUserMail: string = this.tasksService.currentUserMail;
+  public taskPartners: Task[] = [];
 
   constructor(
     private _location: Location,
@@ -34,7 +35,9 @@ export class TaskDetailsComponent implements OnInit {
     this.daySelected = this.dataStorageService.getQueryParam('day');
     this.getTaskId(); // get index from route param insted
     this.setTask(this.daySelected);
+    this.taskPartners = this.task.partners;
     console.log(this.taskIndex);
+    console.log(this.taskPartnersLength);
   }
 
   private getTaskId() {
@@ -72,11 +75,11 @@ export class TaskDetailsComponent implements OnInit {
     console.log(this.task);
   }
 
-  onPhoneCall() {
-    window.location.href =`tel:${this.task.partnerNumber}`;
+  onPhoneCall(partner: Partner) {
+    window.location.href =`tel:${partner.partnerNumber}`;
   }
 
-  onSendMail() {
+  onSendMail(partner: Partner) {
     console.log(this.task);
     let taskUniqueId: number = this.dateService.getTimeMs;
     const taskToSend: Task = Object.assign({}, this.task);
@@ -84,10 +87,18 @@ export class TaskDetailsComponent implements OnInit {
     taskToSend.partnerNumber = null;
     taskToSend.partnerName = null;
     taskToSend.taskUniqueId = taskUniqueId;
-    this.dataStorageService.storeInvitation(this.task.partnerMail, taskToSend, taskUniqueId);
-    this.task.isInvited = true;
+    this.dataStorageService.storeInvitation(partner.partnerMail, taskToSend, taskUniqueId);
+    partner.isInvited = true;
     console.log(taskToSend);
     this.tasksService.storeAllTasks();
+  }
+
+  isItMe(partnerMail: string) {
+    return partnerMail === this.currentUserMail ? true : false;
+  }
+
+  get taskPartnersLength() {
+    return this.task.partners.length;
   }
 
 }

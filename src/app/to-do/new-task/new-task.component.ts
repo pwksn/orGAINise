@@ -1,6 +1,6 @@
 import { DateService } from './../../shared/date.service';
 import { DataStorageService } from './../../shared/data-storage.service';
-import { Task } from './../task.model';
+import { Partner, Task } from './../task.model';
 import { TasksService } from './../tasks.service';
 import { Location } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -24,6 +24,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
   public taskTimeCycles: number = 1;
   public taskTime: number[] = [0, 25];
   private taskCyclesDone: number;
+  public partnersList: Partner[] = [];
 
   constructor(
     private _location: Location,
@@ -54,20 +55,37 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       taskName: this.taskForm.value['name'],
       taskDay: this.taskForm.value['day'],
       taskDetails: this.taskForm.value['details'],
-      partnerName: this.taskForm.value['partner'],
-      partnerNumber: this.taskForm.value['phone'],
-      partnerMail: this.taskForm.value['mail'],
+      // partnerName: this.taskForm.value['partner'],
+      // partnerNumber: this.taskForm.value['phone'],
+      // partnerMail: this.taskForm.value['mail'],
       taskCycles: this.taskTimeCycles,
-      taskCyclesDone: this.taskCyclesDone
+      taskCyclesDone: this.taskCyclesDone,
+      partners: this.partnersList
     }
 
     if (this.isEditMode) {
+      for (let partner of this.task.partners) {
+        partner.isInvited = false;
+      }
       this.changeTask(this.task);
     } else {
       this.tasksService.addTask(this.task);
     }
     this.tasksService.storeAllTasks();
     this.onGoToTaskList();
+  }
+
+  public onAddPartner() {
+    const newPartner: Partner = {
+      partnerName: this.taskForm.value['partner'],
+      partnerNumber: this.taskForm.value['phone'],
+      partnerMail: this.taskForm.value['mail']
+    };
+    this.partnersList.push(newPartner);
+    console.log(this.partnersList);
+    this.taskForm.controls['partner'].reset();
+    this.taskForm.controls['phone'].reset();
+    this.taskForm.controls['mail'].reset();
   }
 
   onGoBack() {
@@ -113,11 +131,12 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       taskName = task.taskName;
       taskDay = task.taskDay;
       taskDetails = task.taskDetails;
-      partnerName = task.partnerName;
-      partnerNumber = task.partnerNumber;
-      partnerMail = task.partnerMail;
+      // partnerName = task.partnerName;
+      // partnerNumber = task.partnerNumber;
+      // partnerMail = task.partnerMail;
       this.taskTimeCycles = task.taskCycles;
       this.taskCyclesDone = task.taskCyclesDone;
+      this.partnersList = task.partners;
     }
 
     this.taskForm = new FormGroup({
@@ -130,6 +149,8 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     })
   }
 
+  get name() { return this.taskForm.get('name'); }
+
   public changeTaskCycle(operation: string) {
     if (operation === 'increase' && this.taskTimeCycles < 99) {
       this.taskTimeCycles++;
@@ -137,5 +158,15 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       this.taskTimeCycles--;
     }
     this.taskTime = this.tasksService.calculateTaskTime(this.taskTimeCycles);
+  }
+
+  public canBeAdded() {
+    return this.taskForm.value['partner'] ? true : false;
+  }
+
+  public onRemovePartner(partner: Partner) {
+    const index = this.partnersList.indexOf(partner);
+    this.partnersList.splice(index, 1);
+    console.log(this.partnersList);
   }
 }
