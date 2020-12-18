@@ -64,7 +64,6 @@ export class TasksService {
     } else {
       this.laterTasks.push(task);
     }
-    console.log(task);
     // this.storeAllTasks();
   }
 

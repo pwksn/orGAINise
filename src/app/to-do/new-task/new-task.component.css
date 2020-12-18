@@ -11,8 +11,8 @@ h2 {
 }
 
 h3 {
-    font-size: 3rem;
-    font-weight: 400;
+    /* font-size: 3rem;
+    font-weight: 400; */
     margin: 0 2rem;
 }
 
@@ -44,6 +44,11 @@ input.ng-invalid.ng-dirty {
         display: flex;
         flex-direction: column;
     }
+}
+
+.pomodoro-calc-text {
+    font-size: 3rem;
+    font-weight: 400; 
 }
 
 .button-back {

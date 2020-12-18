@@ -35,9 +35,21 @@ export class WeatherService {
         dateTime: ''
     }
 
+    public getWeatherData(latitude: number, longitude: number) {
+        return this.http.get<WeatherCurrentResponse>('https://api.openweathermap.org/data/2.5/weather?lat='+ latitude + '&lon=' + longitude + '&appid=bffb31e7ffc6eedf1f1311e3c8d3bf9f&lang=pl&units=metric');
+    }
+
+    public getWeatherForecastData(latitude: number, longitude: number) {
+        return  this.http.get<WeatherForecastResponse>('https://api.openweathermap.org/data/2.5/onecall?lat='+ latitude +'&lon=' + longitude +'&exclude=hourly,minutely,current&appid=bffb31e7ffc6eedf1f1311e3c8d3bf9f&lang=pl&units=metric');
+    }
+
+    public getAirConditionsData(longitude: number, latitude: number) {
+        return this.http.get<AirConditionResponse>('https://airapi.airly.eu/v2/measurements/point?lat='+ latitude +'&lng='+ longitude +'&apikey=Oeam5hSEwezqPTEj1ElYB4i1uOh9ZD5b');
+    }
+
     getWeather(longitude: number, latitude: number) {
         // Get current weather
-        this.http.get<WeatherCurrentResponse>('https://api.openweathermap.org/data/2.5/weather?lat='+ latitude + '&lon=' + longitude + '&appid=bffb31e7ffc6eedf1f1311e3c8d3bf9f&lang=pl&units=metric').subscribe(response => {
+        this.getWeatherData(latitude, longitude).subscribe(response => {
             console.log(response);
             this.currentWeatherData.locationName = response.name;
             this.currentWeatherData.currentTemp = response.main.temp;
@@ -50,7 +62,7 @@ export class WeatherService {
         });
 
         // Get forecast for next days
-        this.http.get<WeatherForecastResponse>('https://api.openweathermap.org/data/2.5/onecall?lat='+ latitude +'&lon=' + longitude +'&exclude=hourly,minutely,current&appid=bffb31e7ffc6eedf1f1311e3c8d3bf9f&lang=pl&units=metric').subscribe(
+        this.getWeatherForecastData(latitude, longitude).subscribe(
             response => {
                 console.log(response.daily[1]);
                 this.nextDayWeather.minTemp = response.daily[1].temp.min;
@@ -65,7 +77,7 @@ export class WeatherService {
     }
 
     getAirCondition(longitude: number, latitude: number) {
-        this.http.get<AirConditionResponse>('https://airapi.airly.eu/v2/measurements/point?lat='+ latitude +'&lng='+ longitude +'&apikey=Oeam5hSEwezqPTEj1ElYB4i1uOh9ZD5b').subscribe(
+        this.getAirConditionsData(longitude, latitude).subscribe(
             response => {
                 console.log(response);
                 this.currentAirCondition.description = response.current.indexes[0].description;

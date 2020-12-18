@@ -100,26 +100,29 @@ export class TimerService {
         this.value = [this.value[0], this.value[1] - 1];
       }
     }
-    console.log(this.value[0] +  ':' + this.value[1]);
     this.getValue();
   }
 
   onTimerComplete() {
-    console.log('completed!');
     this.soundEffectService.playBellRing();
     if (this.currentMode === 'short' || this.currentMode === 'long') {
-      this.currentMode = 'focus';
+      this.setNextMode('focus');
     } else if (this.currentMode === 'focus' && this.cyclesDone !== 0 && this.cyclesDone % 3 === 0) {
-      this.cyclesDone++;
-      this.currentTask.taskCyclesDone++;
-      this.currentMode = 'long';
+      this.setNextMode('long');
     } else {
+      this.setNextMode('short');
+    }
+    this.tasksService.storeAllTasks();
+  }
+
+  private setNextMode(mode: string) {
+    if (mode === 'long' || mode === 'short') { 
       this.cyclesDone++;
       this.currentTask.taskCyclesDone++;
-      this.currentMode = 'short';
+      this.currentMode = mode;
+    } else {
+      this.currentMode = mode;
     }
-    console.log(this.currentTask);
-    this.tasksService.storeAllTasks();
   }
 
   public setCurrentTask(task: Task) {

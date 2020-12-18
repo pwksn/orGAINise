@@ -53,7 +53,6 @@ export class DateService {
 
     get getTimeMs(){
         const dateNow = new Date().getTime();
-        console.log(dateNow);
         return dateNow;
     }
     

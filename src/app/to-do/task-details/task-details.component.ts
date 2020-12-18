@@ -80,7 +80,6 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   onSendMail(partner: Partner) {
-    console.log(this.task);
     let taskUniqueId: number = this.dateService.getTimeMs;
     const taskToSend: Task = Object.assign({}, this.task);
     taskToSend.partnerMail = this.tasksService.currentUserMail;
@@ -89,7 +88,6 @@ export class TaskDetailsComponent implements OnInit {
     taskToSend.taskUniqueId = taskUniqueId;
     this.dataStorageService.storeInvitation(partner.partnerMail, taskToSend, taskUniqueId);
     partner.isInvited = true;
-    console.log(taskToSend);
     this.tasksService.storeAllTasks();
   }
 
