@@ -48,6 +48,7 @@ export class AuthComponent implements OnInit {
 
   onToggleMode() {
     this.isLoggingMode = !this.isLoggingMode;
+    this.errorMsg = '';
     this.initForm();
   }
 
@@ -98,15 +99,6 @@ export class AuthComponent implements OnInit {
           );
         }
       );
-      // this.dataStorageService.fetchTasks().subscribe(
-      //   fetchedTasks => {
-      //     console.log(fetchedTasks);
-      //     fetchedTasks.concat(this.invitationalTasks);
-      //     fetchedTasks ? this.tasksService.sortTasksByDay(fetchedTasks) : null;
-      //     this.router.navigate(['/todo/today']);
-      //     this.isLoading = false;
-      //   }
-      // );
     }, errorMsg => {
       console.log(errorMsg);
       this.errorMsg = errorMsg;
@@ -117,32 +109,11 @@ export class AuthComponent implements OnInit {
   }
 
   private initForm() {
-    // if (this.isLoggingMode) {
-    //   let uName = '';
-    //   let uPwd = '';
-
-    //   this.authForm = new FormGroup({
-    //     'userName': new FormControl(uName, Validators.required),
-    //     'userPassword': new FormControl(uPwd, [Validators.required, Validators.minLength(6)])
-    //   });
-    // } else {
-    //   let uName = '';
-    //   let uPwd = '';
-    //   let uPwdConfirm = '';
-    //   let uNick = '';
-
-    //   this.authForm = new FormGroup({
-    //     'userName': new FormControl(uName, Validators.required),
-    //     'userPassword': new FormControl(uPwd, [Validators.required, Validators.minLength(6)]),
-    //     'userPasswordRepeat': new FormControl(uPwdConfirm, Validators.required),
-    //     'userNick': new FormControl(uNick, Validators.required)
-    //   });
-    // }
 
     if (this.isLoggingMode) {
       this.authForm = this.formBuilder.group({
-        userName: ['', [Validators.required, Validators.email]],
-        userPassword: ['', [Validators.required, Validators.minLength(6)]]
+        userName: ['pawelkopciara@interia.pl', [Validators.required, Validators.email]],
+        userPassword: ['haslo123', [Validators.required, Validators.minLength(6)]]
       })
     } else {
       this.authForm = this.formBuilder.group({

@@ -96,7 +96,7 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   get taskPartnersLength() {
-    return this.task.partners.length;
+    return this.task.partners?.length;
   }
 
 }

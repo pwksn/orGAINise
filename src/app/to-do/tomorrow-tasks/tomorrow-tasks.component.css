@@ -1,11 +1,18 @@
 .todo-box {
     padding: 4rem 6rem;
-    height: 100%;
-
+    height: 90vh !important;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: max-content 1fr;
+    grid-template-rows: max-content minmax(0, 1fr);
 }
+
+@media (max-width: 700px) {
+    .todo-box {
+        padding: 4rem 4rem;
+        height: 75vh !important;
+    }
+}
+
 
 .info-bar {
     width: 100%;
@@ -13,7 +20,7 @@
 
 .tasks-list {
     width: 100%;
-    height: 80%;
+    height: 100%;
 }
 
 h2, h4 {
