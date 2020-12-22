@@ -109,5 +109,41 @@ export class WeatherService {
         this.getNextDayWeather();
     }
 
+    public setWeatherData(weatherDataCombined) {
+        this.setCurrentWeatherData(weatherDataCombined[0]);
+        this.setWeatherForecastData(weatherDataCombined[1]);
+        //this.setAirConditionsData(weatherDataCombined[2]);
+    }
+
+    private setCurrentWeatherData(weatherData) {
+        this.currentWeatherData = {
+            locationName: weatherData.name,
+            currentTemp: weatherData.main.temp,
+            feelsLikeTemp: weatherData.main.feels_like,
+            weatherDesc: weatherData.weather[0].description,
+            weatherIconName: weatherData.weather[0].icon,
+            pressure: weatherData.main.pressure,
+            humidity: weatherData.main.humidity,
+        };
+    }
+
+    private setWeatherForecastData(weatherForecastData) {
+        this.nextDayWeather = {
+            temp: weatherForecastData.daily[1].temp.day,
+            minTemp: weatherForecastData.daily[1].temp.min,
+            maxTemp: weatherForecastData.daily[1].temp.max,
+            weatherDesc: weatherForecastData.daily[1].weather[0].description,
+            weatherIconName: weatherForecastData.daily[1].weather[0].icon
+        }
+    }
+
+    public setAirConditionsData(airConditionsData) {
+        this.currentAirCondition = {
+            description: airConditionsData.current.indexes[0].description,
+            value: airConditionsData.current.indexes[0].value,
+            dateTime: airConditionsData.current.tillDateTime
+        }
+    }
+
 
 }

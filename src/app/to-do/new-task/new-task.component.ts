@@ -64,15 +64,17 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     }
 
     if (this.isEditMode) {
-      for (let partner of this.task.partners) {
-        partner.isInvited = false;
+      if (this.task.partners) {
+        for (let partner of this.task.partners) {
+          partner.isInvited = false;
+        }
       }
       this.changeTask(this.task);
     } else {
       this.tasksService.addTask(this.task);
     }
-    this.tasksService.storeAllTasks();
-    this.onGoToTaskList();
+    this.tasksService.storeAllTasks(this.task.taskDay);
+    //this.onGoToTaskList();
   }
 
   public onAddPartner() {

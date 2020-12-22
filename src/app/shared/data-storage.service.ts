@@ -23,7 +23,7 @@ export class DataStorageService {
 
     public storeTasks(tasks: Task[]) {
         return this.http.put(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}/tasks.json`, tasks)
-            .subscribe(response => console.log(response));
+            // .subscribe(response => console.log(response));
     }
 
     public fetchTasks() {

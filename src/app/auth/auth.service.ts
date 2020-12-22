@@ -1,3 +1,4 @@
+import { LocationService } from './../shared/location.service';
 import { TasksService } from './../to-do/tasks.service';
 import { Router } from '@angular/router';
 import { User } from './user.model';
@@ -27,7 +28,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private locationService: LocationService
   ) { }
 
   signUp(email: string, password: string) {
@@ -80,6 +82,10 @@ export class AuthService {
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
+
+    this.locationService.getPosition().then(pos => {
+      localStorage.setItem('userPosition', JSON.stringify(pos));
+    });
   }
 
   public logOut(){
@@ -88,6 +94,7 @@ export class AuthService {
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     localStorage.removeItem('currentTaskName');
+    localStorage.removeItem('userPosition');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -112,6 +119,9 @@ export class AuthService {
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
+    this.locationService.getPosition().then(pos => {
+      localStorage.setItem('userPosition', JSON.stringify(pos));
+    });
   }
 
   private handleError(errorRes: HttpErrorResponse) {

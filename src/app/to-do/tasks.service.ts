@@ -1,8 +1,9 @@
 import { DataStorageService } from './../shared/data-storage.service';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { DateService } from './../shared/date.service';
 import { Task, Partner } from './task.model';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class TasksService {
 
   constructor(
     private dateService: DateService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private router: Router,
   ) { }
 
   public getTask(index: number, day: string) {
@@ -138,14 +140,18 @@ export class TasksService {
     }
   }
 
-  public storeAllTasks() {
+  public storeAllTasks(taskDay?: string) {
     this.allTasks = this.todayTasks.concat(this.tomorrowTasks, this.laterTasks, this.terminatedTasks);
     const tasksToStore: Task[] = [];
     for (let task of this.allTasks) {
       if (!task.isInvitational) tasksToStore.push(task);
     }
     console.log(tasksToStore);
-    this.dataStorageService.storeTasks(tasksToStore);
+    this.dataStorageService.storeTasks(tasksToStore).subscribe(res => {
+      if (taskDay) {
+        this.router.navigateByUrl(`/todo/${taskDay}`);
+      }
+    });
   }
 
   public setTasks(tasks: Task[]) {
@@ -171,7 +177,7 @@ export class TasksService {
   }
 
   get currentUserMail() {
-    return this._currentUserMail;
+    return this._currentUserMail ? this._currentUserMail : JSON.parse(localStorage.getItem('userData')).email;
   }
 
   public swapPartners(partners: Partner[], givenPartner: Partner) {

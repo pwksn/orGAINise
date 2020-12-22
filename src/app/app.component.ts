@@ -39,9 +39,9 @@ export class AppComponent implements OnInit {
       this.dataStorageService.localId = user?.id;
     });
     if (this.isLoggedIn) {
-      this.locationService.getPosition().then(pos => {
-        this.weatherService.getWeather(pos.lng, pos.lat);
-      });
+      // this.locationService.getPosition().then(pos => {
+      //   localStorage.setItem('userPosition', JSON.stringify(pos));
+      // });
     }
     this.dataStorageService.fetchTasks();
   }
