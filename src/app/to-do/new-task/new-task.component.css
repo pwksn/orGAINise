@@ -43,12 +43,13 @@ input.ng-invalid.ng-dirty {
     .form-row-flex {
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
 }
 
 .pomodoro-calc-text {
     font-size: 3rem;
-    font-weight: 400; 
+    font-weight: 400;
 }
 
 .button-back {
@@ -83,7 +84,8 @@ input.ng-invalid.ng-dirty {
 
 .new-task-box {
     padding: 4rem 6rem;
-    height: 100%;
+    height: 90vh !important;
+    overflow-y: scroll;
 }
 
 .new-task-header {

@@ -33,9 +33,8 @@ export class TasksListComponent implements OnInit {
       )
       if (this.daySelected === 'today') {
         this.tasks = this.tasksService.getTerminatedTasks().concat(this.tasksService.getTodayTasks());
-        console.log(this.tasks);
       } else if (this.daySelected === 'tomorrow') {
-        this.tasks === this.tasksService.getTomorrowTasks();
+        this.tasks = this.tasksService.getTomorrowTasks();
       } else {
         this.tasks = this.tasksService.getLaterTasks();
       }
@@ -72,8 +71,8 @@ export class TasksListComponent implements OnInit {
 
   goToDetails(index: number) {
     console.log(index);
-    this.router.navigate([`../details`, index], 
-    { 
+    this.router.navigate([`../details`, index],
+    {
       relativeTo: this.route.parent,
       queryParams: {
         day: this.daySelected,

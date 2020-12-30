@@ -51,6 +51,14 @@ export class LaterTasksComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.dataStorageService.localId);
     this.tasksService.clearAllTasks();
+    this.prepareTasks();
+  }
+
+  private laterTasksLength() {
+    this.laterTasksCounter = this.tasksService.getLaterTasks().length;
+  }
+
+  private prepareTasks() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userEmail = userData?.email;
     this.isTasksDataLoading = true;
@@ -75,10 +83,6 @@ export class LaterTasksComponent implements OnInit {
       this.laterTasksLength();
       this.isTasksDataLoading = false;
     })
-  }
-
-  private laterTasksLength() {
-    this.laterTasksCounter = this.tasksService.getLaterTasks().length;
   }
 
 }

@@ -49,6 +49,14 @@ export class TomorrowTasksComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.dataStorageService.localId);
     this.tasksService.clearAllTasks();
+    this.prepareTasks();
+  }
+
+  private tomorrowTasksLength() {
+    this.tomorrowTasksCounter = this.tasksService.getTomorrowTasks().length;
+  }
+
+  private prepareTasks() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userEmail = userData?.email;
     this.isTasksDataLoading = true;
@@ -73,10 +81,6 @@ export class TomorrowTasksComponent implements OnInit {
       this.tomorrowTasksLength();
       this.isTasksDataLoading = false;
     })
-  }
-
-  private tomorrowTasksLength() {
-    this.tomorrowTasksCounter = this.tasksService.getTomorrowTasks().length;
   }
 
 }

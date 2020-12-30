@@ -39,7 +39,7 @@ export class WeatherComponent implements OnInit {
     this.userPosition = JSON.parse(localStorage.getItem('userPosition'));
     this.isWeatherDataLoading = true;
     this.isAirDataLoading = true;
-    this.weatherService.getAirConditionsData(this.userPosition.lng, this.userPosition.lat).subscribe(
+    this.weatherService.getAirConditionsData(this.userPosition?.lng, this.userPosition?.lat).subscribe(
       res =>{
         this.weatherService.setAirConditionsData(res);
         this.isAirDataLoading = false;

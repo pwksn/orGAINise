@@ -50,8 +50,16 @@ export class TodayTasksComponent implements OnInit {
     if (this.tasksService.allTasks.length !== 0) {
       this.todayTasksLength();
       return;
-    } 
+    }
     this.tasksService.clearAllTasks();
+    this.prepareTasks();
+  }
+
+  private todayTasksLength() {
+    this.todayTasksCounter = this.tasksService.getTodayTasks().length;
+  }
+
+  private prepareTasks() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userEmail = userData?.email;
     this.isTasksDataLoading = true;
@@ -76,10 +84,6 @@ export class TodayTasksComponent implements OnInit {
       this.todayTasksLength();
       this.isTasksDataLoading = false;
     })
-  }
-
-  private todayTasksLength() {
-    this.todayTasksCounter = this.tasksService.getTodayTasks().length;
   }
 
 }

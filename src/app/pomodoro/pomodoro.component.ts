@@ -1,6 +1,7 @@
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Task } from './../to-do/task.model';
 import { TasksService } from './../to-do/tasks.service';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { TimerService } from './timer/timer.service';
 import { Component, OnDestroy, OnInit, OnChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,24 +21,65 @@ export class PomodoroComponent implements OnInit, OnDestroy {
   public todayTasksCount: number;
   public todayTasksList: Task[];
   public taskCyclesDone: number;
-  private currentTask: Task;
+  public currentTask: Task;
   public currentTaskName: string;
+
+  public isTasksDataLoading: boolean;
+  private invitationalTasks: Task[] = [];
+  private taskCombined: Task[] = [];
 
   constructor(
     private modalService: NgbModal,
     private timerService: TimerService,
     private tasksService: TasksService,
+    private dataStorageService: DataStorageService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.mode = this.timerService.getCurrentMode();
-    this.pomodoroCount = this.timerService.getCyclesDone();
-    this.todayTasksList = this.tasksService.getTodayTasks();
-    this.todayTasksCount = this.tasksService.getTodayTasks().length;
-    this.currentTaskName = JSON.parse(localStorage.getItem('currentTaskName'));
-    this.setNewTask(this.currentTaskName);
-    this.onModeChange();
+    if (this.tasksService.getTodayTasks().length === 0) {
+      const userData = JSON.parse(localStorage.getItem('userData'));
+    const userEmail = userData?.email;
+    this.isTasksDataLoading = true;
+    forkJoin([
+      this.dataStorageService.fetchTasks(),
+      this.dataStorageService.fetchInvitations(userEmail)
+    ]).subscribe(res => {
+      console.log(res);
+      if (!!res[1]) {
+        for (let [uid, task] of Object.entries(res[1])) {
+          console.log(task);
+          task.isInvitational = true;
+          this.invitationalTasks.push(task);
+        }
+      };
+      if (!res[0]) {
+        this.taskCombined = this.invitationalTasks;
+      } else {
+        this.taskCombined = res[0].concat(this.invitationalTasks);
+      };
+      this.taskCombined ? this.tasksService.sortTasksByDay(this.taskCombined) : null;
+      this.isTasksDataLoading = false;
+
+      this.mode = this.timerService.getCurrentMode();
+      this.pomodoroCount = this.timerService.getCyclesDone();
+      this.todayTasksList = this.tasksService.getTodayTasks();
+      this.todayTasksCount = this.tasksService.getTodayTasks().length;
+      this.currentTaskName = JSON.parse(localStorage.getItem('currentTaskName'));
+
+      this.setNewTask(this.currentTaskName);
+      this.onModeChange();
+    })
+    } else {
+      this.mode = this.timerService.getCurrentMode();
+      this.pomodoroCount = this.timerService.getCyclesDone();
+      this.todayTasksList = this.tasksService.getTodayTasks();
+      this.todayTasksCount = this.tasksService.getTodayTasks().length;
+      this.currentTaskName = JSON.parse(localStorage.getItem('currentTaskName'));
+
+      this.setNewTask(this.currentTaskName);
+      this.onModeChange();
+    }
   }
 
   ngOnDestroy() {
@@ -125,7 +167,7 @@ export class PomodoroComponent implements OnInit, OnDestroy {
     if (!this.currentTask) {
       this.currentTask = this.todayTasksList[0];
     }
-    if (!this.currentTask.taskCyclesDone) {
+    if (!this.currentTask?.taskCyclesDone) {
       this.currentTask.taskCyclesDone = 0;
     }
     this.timerService.setCurrentTask(this.currentTask);
