@@ -50,7 +50,6 @@ export class WeatherService {
     getWeather(longitude: number, latitude: number) {
         // Get current weather
         this.getWeatherData(latitude, longitude).subscribe(response => {
-            console.log(response);
             this.currentWeatherData.locationName = response.name;
             this.currentWeatherData.currentTemp = response.main.temp;
             this.currentWeatherData.feelsLikeTemp = response.main.feels_like;
@@ -58,20 +57,16 @@ export class WeatherService {
             this.currentWeatherData.weatherIconName = response.weather[0].icon;
             this.currentWeatherData.pressure = response.main.pressure;
             this.currentWeatherData.humidity = response.main.humidity;
-            console.log(this.currentWeatherData);
         });
 
         // Get forecast for next days
         this.getWeatherForecastData(latitude, longitude).subscribe(
             response => {
-                console.log(response.daily[1]);
                 this.nextDayWeather.minTemp = response.daily[1].temp.min;
                 this.nextDayWeather.maxTemp = response.daily[1].temp.max;
                 this.nextDayWeather.weatherDesc = response.daily[1].weather[0].description;
                 this.nextDayWeather.temp = response.daily[1].temp.day;
                 this.nextDayWeather.weatherIconName = response.daily[1].weather[0].icon;
-                console.log(this.nextDayWeather);
-
             }
         )
     }
@@ -79,11 +74,9 @@ export class WeatherService {
     getAirCondition(longitude: number, latitude: number) {
         this.getAirConditionsData(longitude, latitude).subscribe(
             response => {
-                console.log(response);
                 this.currentAirCondition.description = response.current.indexes[0].description;
                 this.currentAirCondition.value = response.current.indexes[0].value;
                 this.currentAirCondition.dateTime = response.current.tillDateTime;
-                console.log(this.currentAirCondition);
             }
         );
     }
@@ -112,7 +105,6 @@ export class WeatherService {
     public setWeatherData(weatherDataCombined) {
         this.setCurrentWeatherData(weatherDataCombined[0]);
         this.setWeatherForecastData(weatherDataCombined[1]);
-        //this.setAirConditionsData(weatherDataCombined[2]);
     }
 
     private setCurrentWeatherData(weatherData) {

@@ -55,9 +55,6 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       taskName: this.taskForm.value['name'],
       taskDay: this.taskForm.value['day'],
       taskDetails: this.taskForm.value['details'],
-      // partnerName: this.taskForm.value['partner'],
-      // partnerNumber: this.taskForm.value['phone'],
-      // partnerMail: this.taskForm.value['mail'],
       taskCycles: this.taskTimeCycles,
       taskCyclesDone: this.taskCyclesDone,
       partners: this.partnersList
@@ -74,7 +71,6 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       this.tasksService.addTask(this.task);
     }
     this.tasksService.storeAllTasks(this.task.taskDay);
-    //this.onGoToTaskList();
   }
 
   public onAddPartner() {
@@ -84,7 +80,6 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       partnerMail: this.taskForm.value['mail']
     };
     this.partnersList.push(newPartner);
-    console.log(this.partnersList);
     this.taskForm.controls['partner'].reset();
     this.taskForm.controls['phone'].reset();
     this.taskForm.controls['mail'].reset();
@@ -112,9 +107,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       .subscribe(
         (params: Params) => {
           this.taskId = +params['id'];
-          console.log(this.taskId);
           this.isEditMode = params['id'] != null;
-          console.log(this.isEditMode);
         }
       )
   }
@@ -128,21 +121,17 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     let partnerMail = '';
 
     if (this.isEditMode) {
-      console.log(this.taskId, this.daySelected);
       const task = this.tasksService.getTask(this.taskId, this.daySelected);
       taskName = task.taskName;
       taskDay = task.taskDay;
       taskDetails = task.taskDetails;
-      // partnerName = task.partnerName;
-      // partnerNumber = task.partnerNumber;
-      // partnerMail = task.partnerMail;
       this.taskTimeCycles = task.taskCycles;
       this.taskCyclesDone = task.taskCyclesDone;
       this.partnersList = task.partners;
     }
 
     this.taskForm = new FormGroup({
-      'name': new FormControl(taskName, [Validators.required, Validators.maxLength(30)]), // toDo: komunikat
+      'name': new FormControl(taskName, [Validators.required, Validators.maxLength(30)]),
       'day': new FormControl(taskDay),
       'details': new FormControl(taskDetails),
       'partner': new FormControl(partnerName),
@@ -169,6 +158,5 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
   public onRemovePartner(partner: Partner) {
     const index = this.partnersList.indexOf(partner);
     this.partnersList.splice(index, 1);
-    console.log(this.partnersList);
   }
 }

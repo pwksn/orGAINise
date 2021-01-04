@@ -47,7 +47,6 @@ export class TomorrowTasksComponent implements OnInit {
   private taskCombined: Task[] = [];
 
   ngOnInit(): void {
-    console.log(this.dataStorageService.localId);
     this.tasksService.clearAllTasks();
     this.prepareTasks();
   }
@@ -64,10 +63,8 @@ export class TomorrowTasksComponent implements OnInit {
       this.dataStorageService.fetchTasks(),
       this.dataStorageService.fetchInvitations(userEmail)
     ]).subscribe(res => {
-      console.log(res);
       if (!!res[1]) {
         for (let [uid, task] of Object.entries(res[1])) {
-          console.log(task);
           task.isInvitational = true;
           this.invitationalTasks.push(task);
         }

@@ -39,11 +39,9 @@ export class TimerComponent implements OnInit, OnDestroy {
     if(this.subscription) {
       this.subscription.unsubscribe();
     }
-    console.log(this.subscription);
     this.isTimerRunning = true;
     this.timerService.onTimerStart();
     if (this.timerService.subscription) {
-      console.log('subbing!');
       this.subscription = interval(1000).subscribe(x => this.onTimerUpdate());
       this.isServiceRunning = this.timerService.isRunning;
     }
@@ -62,7 +60,6 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.timerService.onTimerReset();
     if (this.subscription) {
       this.isServiceRunning = this.timerService.isRunning
-      console.log('unsub!');
       this.subscription.unsubscribe();
     }
     this.value = this.timerService.getValue();

@@ -33,11 +33,9 @@ export class TaskDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.daySelected = this.dataStorageService.getQueryParam('day');
-    this.getTaskId(); // get index from route param insted
+    this.getTaskId(); 
     this.setTask(this.daySelected);
     this.taskPartners = this.task.partners;
-    console.log(this.taskIndex);
-    console.log(this.taskPartnersLength);
   }
 
   private getTaskId() {
@@ -72,7 +70,6 @@ export class TaskDetailsComponent implements OnInit {
       this.tasksList = this.tasksService.getLaterTasks();
     }
     this.task = this.tasksList[this.taskIndex];
-    console.log(this.task);
   }
 
   onPhoneCall(partner: Partner) {

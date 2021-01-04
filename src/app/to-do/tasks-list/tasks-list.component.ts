@@ -70,13 +70,11 @@ export class TasksListComponent implements OnInit {
   }
 
   goToDetails(index: number) {
-    console.log(index);
     this.router.navigate([`../details`, index],
     {
       relativeTo: this.route.parent,
       queryParams: {
         day: this.daySelected,
-        // i: index
       } });
   }
 

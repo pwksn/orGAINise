@@ -60,7 +60,6 @@ export class TimerService {
         this.startingSeconds = 5;
         break;
     }
-    console.log(this.startingMinutes, this.startingSeconds);
     this.value = [this.startingMinutes, this.startingSeconds];
   }
 

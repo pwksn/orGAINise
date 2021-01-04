@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from './helpers/must-match.validator';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -40,8 +39,6 @@ export class AuthComponent implements OnInit {
 
   get userPasswordRepeat() { return this.authForm.get('userPasswordRepeat')};
 
-  // get userNick() { return this.authForm.get('userNick')};
-
   ngOnInit(): void {
     this.initForm();
   }
@@ -69,24 +66,18 @@ export class AuthComponent implements OnInit {
     }
 
     authObs.subscribe(resData => {
-      console.log(resData);
-      // this.isLoading = false;
-      console.log(resData.idToken);
       this.dataStorageService.localId = resData.localId;
       this.tasksService.currentUserMail = resData.email;
       this.dataStorageService.fetchInvitations(resData.email).subscribe(
         fetchedInvitations => {
           if (!!fetchedInvitations) {
             for (let [uid, task] of Object.entries(fetchedInvitations)) {
-              console.log(task);
               task.isInvitational = true;
               this.invitationalTasks.push(task);
             }
           }
-          console.log(this.invitationalTasks);
           this.dataStorageService.fetchTasks().subscribe(
             fetchedTasks => {
-              console.log(fetchedTasks);
               if(!fetchedTasks) {
                 this.taskCombined = this.invitationalTasks;
               } else {
@@ -100,7 +91,6 @@ export class AuthComponent implements OnInit {
         }
       );
     }, errorMsg => {
-      console.log(errorMsg);
       this.errorMsg = errorMsg;
       this.isLoading = false;
     });
@@ -112,15 +102,14 @@ export class AuthComponent implements OnInit {
 
     if (this.isLoggingMode) {
       this.authForm = this.formBuilder.group({
-        userName: ['pawelkopciara@interia.pl', [Validators.required, Validators.email]],
-        userPassword: ['haslo123', [Validators.required, Validators.minLength(6)]]
+        userName: ['', [Validators.required, Validators.email]],
+        userPassword: ['', [Validators.required, Validators.minLength(6)]]
       })
     } else {
       this.authForm = this.formBuilder.group({
         userName: ['', [Validators.required, Validators.email]],
         userPassword: ['', [Validators.required, Validators.minLength(6)]],
         userPasswordRepeat: ['', [Validators.required, Validators.minLength(6)]],
-        // userNick: ['', Validators.required]
       },
       {
         validators: MustMatch('userPassword', 'userPasswordRepeat')

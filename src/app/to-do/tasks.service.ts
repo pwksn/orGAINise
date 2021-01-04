@@ -36,10 +36,6 @@ export class TasksService {
     }
   }
 
-  // public getAllTasks() {
-  //   return this.mockTasks;
-  // }
-
   public getTerminatedTasks() {
     return this.terminatedTasks.slice();
   }
@@ -66,7 +62,6 @@ export class TasksService {
     } else {
       this.laterTasks.push(task);
     }
-    // this.storeAllTasks();
   }
 
   public removeTask(index: number, day: string) {
@@ -84,7 +79,6 @@ export class TasksService {
       this.laterTasks.splice(index, 1);
       this.tasksChanged.next(this.laterTasks.slice());
     }
-    console.log(taskToRemove);
     if (taskToRemove.isInvitational) {
       this.dataStorageService.removeInvitation(taskToRemove);
     } else {
@@ -118,7 +112,6 @@ export class TasksService {
       this.laterTasks[index] = newTask;
       this.tasksChanged.next(this.laterTasks.slice());
     }
-    // this.storeAllTasks();
   }
 
   public sortTasksByDay(allGivenTasks: Task[]) {
@@ -146,16 +139,11 @@ export class TasksService {
     for (let task of this.allTasks) {
       if (!task.isInvitational) tasksToStore.push(task);
     }
-    console.log(tasksToStore);
     this.dataStorageService.storeTasks(tasksToStore).subscribe(res => {
       if (taskDay) {
         this.router.navigateByUrl(`/todo/${taskDay}`);
       }
     });
-  }
-
-  public setTasks(tasks: Task[]) {
-
   }
 
   public clearAllTasks() {

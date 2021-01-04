@@ -9,7 +9,6 @@ import { exhaustMap, take } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class DataStorageService {
-    // private allTasks: Task[];
     public localId: string;
 
     constructor(
@@ -22,8 +21,7 @@ export class DataStorageService {
     }
 
     public storeTasks(tasks: Task[]) {
-        return this.http.put(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}/tasks.json`, tasks)
-            // .subscribe(response => console.log(response));
+        return this.http.put(`https://orgainise-webapp.firebaseio.com/usersData/${this.localId}/tasks.json`, tasks);
     }
 
     public fetchTasks() {
@@ -56,7 +54,6 @@ export class DataStorageService {
                   task.isInvited = true;
                   task.taskUniqueId = uniqueId;
                 }
-                console.log(task);
             });
     }
 

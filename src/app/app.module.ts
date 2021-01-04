@@ -29,9 +29,6 @@ import { AuthComponent } from './auth/auth.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    // WeatherModule,
-    // ToDoModule,
-    // PomodoroModule,
     SharedModule,
     CommonModule,
     AppRoutingModule,

@@ -13,7 +13,6 @@ const todayTasksRoutes: Routes = [
 ];
 
 @NgModule({
-  // declarations: [TodayTasksComponent, InfoBarComponent, WeatherWidgetComponent],
   declarations: [TodayTasksComponent],
   imports: [
     CommonModule,

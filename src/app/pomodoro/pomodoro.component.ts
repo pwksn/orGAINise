@@ -45,10 +45,8 @@ export class PomodoroComponent implements OnInit, OnDestroy {
       this.dataStorageService.fetchTasks(),
       this.dataStorageService.fetchInvitations(userEmail)
     ]).subscribe(res => {
-      console.log(res);
       if (!!res[1]) {
         for (let [uid, task] of Object.entries(res[1])) {
-          console.log(task);
           task.isInvitational = true;
           this.invitationalTasks.push(task);
         }
@@ -89,7 +87,6 @@ export class PomodoroComponent implements OnInit, OnDestroy {
   }
 
   onModeChange() {
-    console.log('sikalafą!');
     this.nextModeSub = this.timerService.modeChangedObs.subscribe((mode) => {
       this.mode = mode;
       if (this.mode === 'focus') {

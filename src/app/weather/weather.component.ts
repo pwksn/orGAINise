@@ -32,24 +32,25 @@ export class WeatherComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.locationService.getPosition().then(pos => {
-    //   this.weatherService.getWeather(pos.lng, pos.lat);
-    //   this.weatherService.getAirCondition(pos.lng, pos.lat);
-    // })
     this.userPosition = JSON.parse(localStorage.getItem('userPosition'));
     this.isWeatherDataLoading = true;
     this.isAirDataLoading = true;
     this.weatherService.getAirConditionsData(this.userPosition?.lng, this.userPosition?.lat).subscribe(
-      res =>{
+      res => {
         this.weatherService.setAirConditionsData(res);
+        this.airConditions = this.weatherService.getAirConditions();
+        this.indexCAQI = +this.airConditions.value;
         this.isAirDataLoading = false;
+        this.isAirFetched = true;
+      }, error => {
+        this.isAirDataLoading = false;
+        this.isAirFetched = false;
       }
     )
     forkJoin([
       this.weatherService.getWeatherData(this.userPosition?.lat, this.userPosition?.lng),
       this.weatherService.getWeatherForecastData(this.userPosition?.lat, this.userPosition?.lng),
     ]).subscribe(res => {
-      console.log(res);
       this.weatherService.setWeatherData(res);
       this.fetchedLocation = this.weatherService.getCurrentWeather();
       this.nextDayForecast = this.weatherService.getNextDayWeather();
@@ -61,17 +62,9 @@ export class WeatherComponent implements OnInit {
     }, error => {
       this.isWeatherDataLoading = false;
     });
-    // this.fetchedLocation = this.weatherService.getCurrentWeather();
-    // this.nextDayForecast = this.weatherService.getNextDayWeather();
-    // this.airConditions = this.weatherService.getAirConditions();
-    // this.indexCAQI = +this.airConditions.value;
-    // this.checkWeatherFetched();
-    // this.checkAirFetched();
-    // this.isWeatherDataLoading = false;
   }
 
   onWeatherRefresh() {
-    // this.weatherService.refreshWeather();
     this.locationService.getPosition().then(pos => {
       localStorage.setItem('userPosition', JSON.stringify(pos));
     });
@@ -91,16 +84,13 @@ export class WeatherComponent implements OnInit {
 
   checkAirFetched() {
     if (!this.airConditions.value) {
-      this.isAirFetched = false;
       this.dataStorageService.fetchAirCondition().subscribe(
         response => {
           this.airConditions = response
         }
       );
     } else {
-      this.isAirFetched = true;
       this.dataStorageService.storeAirCondition(this.airConditions);
     }
-    console.log(this.airConditions);
   }
 }
